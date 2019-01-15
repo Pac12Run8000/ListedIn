@@ -56,6 +56,7 @@
 		091FC05F21EDBC56004FAA7A /* ListedIn */ = {
 			isa = PBXGroup;
 			children = (
+				091FC07521EEA067004FAA7A /* Model */,
 				091FC07221EDBD6B004FAA7A /* Extensions */,
 				091FC06021EDBC56004FAA7A /* AppDelegate.swift */,
 				091FC06221EDBC56004FAA7A /* CategoryViewController.swift */,
@@ -73,6 +74,13 @@
 				091FC07321EDBD93004FAA7A /* Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		091FC07521EEA067004FAA7A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

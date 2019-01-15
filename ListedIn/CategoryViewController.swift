@@ -9,7 +9,7 @@
 import UIKit
 
 class CategoryViewController: UIViewController {
-    
+    //
     var categoryTextField:UITextField?
     
     override func viewDidLoad() {
@@ -18,16 +18,18 @@ class CategoryViewController: UIViewController {
     }
     
     @IBAction func addCategoryButtonAction(_ sender: Any) {
-        
-       
-        
+       categoryAlertController()
     }
     
 
 
 }
 
-// MARK: This is the alertViewController functionality
+
+
+
+
+// MARK: This is where the alertController gets the category name that is to be passed to CoreData
 extension CategoryViewController {
     
     
