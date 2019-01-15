@@ -13,7 +13,7 @@ extension UIColor {
     
     static let brightGreen_1 = UIColor.colorFromHex("c9f658")
     static let brightGreen_2 = UIColor.colorFromHex("dbff3d")
-    static let darkgreen = UIColor.colorFromHex("dbff3d")
+    static let darkgreen = UIColor.colorFromHex("55968f")
     static let greenCyan = UIColor.colorFromHex("8acbbb")
     
     static func colorFromHex(_ hex:String) -> UIColor {

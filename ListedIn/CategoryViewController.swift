@@ -12,8 +12,18 @@ class CategoryViewController: UIViewController {
     //
     var categoryTextField:UITextField?
     
+    var categories = [String]()
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        navigationController?.navigationBar.barTintColor = UIColor.darkgreen
+        navigationController?.navigationBar.tintColor = UIColor.brightGreen_2
         
     }
     
@@ -23,6 +33,22 @@ class CategoryViewController: UIViewController {
     
 
 
+}
+
+extension CategoryViewController:UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return categories.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! UITableViewCell
+        cell.textLabel?.text = categories[indexPath.row]
+        cell.detailTextLabel?.text = ""
+        return cell
+    }
+    
+    
 }
 
 
@@ -39,7 +65,15 @@ extension CategoryViewController {
         let cancelDialog = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let saveDialog = UIAlertAction(title: "Save", style: .default) { (action) in
             
-            print("Category:\(String(describing: self.categoryTextField?.text))")
+            if let category = self.categoryTextField?.text {
+                self.categories.append(category)
+            }
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            
+            
             
         }
         saveDialog.isEnabled = false
