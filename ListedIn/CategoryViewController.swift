@@ -22,6 +22,9 @@ class CategoryViewController: UIViewController {
         setTheDelegateAndDataSource()
         setDynamicRowHeight()
         
+        tableView.separatorColor = UIColor.darkgreen
+        tableView.backgroundColor = UIColor.brightGreen_1
+        
         navigationController?.navigationBar.barTintColor = UIColor.darkgreen
         navigationController?.navigationBar.tintColor = UIColor.brightGreen_2
         
@@ -60,7 +63,7 @@ extension CategoryViewController:UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) 
         cell.textLabel?.text = categories[indexPath.row].name
         cell.detailTextLabel?.text = ""
         cell.backgroundColor = UIColor.greenCyan
