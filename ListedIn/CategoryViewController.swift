@@ -28,7 +28,7 @@ class CategoryViewController: UIViewController {
     }
     
     @IBAction func addCategoryButtonAction(_ sender: Any) {
-       categoryAlertController()
+       addCategory()
     }
     
 
@@ -71,6 +71,8 @@ extension CategoryViewController:UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let category = categories[indexPath.row]
+        
+        
         let editAction = UITableViewRowAction(style: .default, title: "Edit") { (rowAction, indexPath) in
             self.editCategory(category: category, indexPath: indexPath)
         }
@@ -86,56 +88,10 @@ extension CategoryViewController:UITableViewDataSource, UITableViewDelegate {
     
 }
 
-// MARK:- Adding, Updating and Deleting data from the Categories array
+// MARK:- Alert Controllers for Adding, Updating and Deleting
 extension CategoryViewController {
     
-    private func editCategory(category:Category, indexPath:IndexPath) {
-        let alert = UIAlertController(title: "", message: "Update the category", preferredStyle: .alert)
-        let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
-            guard let textField = alert.textFields?.first else {
-                return
-            }
-            
-            guard let textToEdit = textField.text, textToEdit.count != 0 else {
-                return
-            }
-            
-            category.name = textToEdit
-            self.tableView.reloadRows(at: [indexPath], with: .automatic)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        alert.addTextField()
-        guard let textField = alert.textFields?.first else {
-            return
-        }
-        textField.placeholder = "Update category"
-        alert.addAction(saveAction)
-        alert.addAction(cancelAction)
-        present(alert, animated: true, completion: nil)
-    }
-    
-    private func deleteCategory(input:Category, indexPath:IndexPath) {
-        self.categories.remove(at: indexPath.row)
-        tableView.deleteRows(at: [indexPath], with: .automatic)
-    }
-    
-    private func addCategoryToTableViewAndArray(catagory:Category)  {
-        self.categories.insert(catagory, at: 0)
-        let indexPath = IndexPath(row: 0, section: 0)
-        tableView.insertRows(at: [indexPath], with: .left)
-    }
-}
-
-
-
-
-
-// MARK: AlertController functionality
-extension CategoryViewController {
-    
-    func categoryAlertController() {
+    func addCategory() {
         let alertDialog = UIAlertController(title: "", message: "Enter a category for your list.", preferredStyle: .alert)
         
         let cancelDialog = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -154,6 +110,7 @@ extension CategoryViewController {
         
         
         alertDialog.addTextField { (textField) in
+            textField.placeholder = "add category"
             NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: .main, using: { (notification) in
                 if let text = textField.text, !text.isEmpty, text != "" {
                     saveDialog.isEnabled = true
@@ -161,15 +118,69 @@ extension CategoryViewController {
                     saveDialog.isEnabled = false
                 }
             })
-            self.categoryTextField?.placeholder = "category"
             self.categoryTextField = textField
         }
         present(alertDialog, animated: true, completion: nil)
     }
- 
     
+    private func editCategory(category:Category, indexPath:IndexPath) {
+        let alert = UIAlertController(title: "", message: "Update the category", preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] action in
+
+            guard let categoryName = self?.categoryTextField?.text else {
+                return
+            }
+            
+            self?.updateCategory(category: category, categoryName: categoryName, indexPath: indexPath)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        saveAction.isEnabled = false
+        
+        alert.addTextField { (textField) in
+//            textField.placeholder = "Update category"
+            textField.text = category.name
+            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: .main, using: { (notification) in
+                    if let text = textField.text, !text.isEmpty, text != "" {
+                        saveAction.isEnabled = true
+                    } else {
+                        saveAction.isEnabled = false
+                    }
+            })
+            self.categoryTextField = textField
+        }
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+    }
     
     
 }
+
+// MARK:- Udate edit and delete functionality
+extension CategoryViewController {
+    
+    private func updateCategory(category:Category, categoryName:String, indexPath:IndexPath) {
+        category.name = categoryName
+        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+    
+    private func deleteCategory(input:Category, indexPath:IndexPath) {
+        self.categories.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+    
+    private func addCategoryToTableViewAndArray(catagory:Category)  {
+        self.categories.insert(catagory, at: 0)
+        let indexPath = IndexPath(row: 0, section: 0)
+        tableView.insertRows(at: [indexPath], with: .left)
+    }
+}
+
+
+
+
+
+
 
 
