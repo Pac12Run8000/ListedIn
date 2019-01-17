@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="17G4015" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Category" representedClassName="Category" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="realEstateProperties" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="RealEstateProperty" inverseName="category" inverseEntity="RealEstateProperty" syncable="YES"/>
+    </entity>
+    <entity name="RealEstateImages" representedClassName="RealEstateImages" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <relationship name="realEstateProperty" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RealEstateProperty" inverseName="realEstateImages" inverseEntity="RealEstateProperty" syncable="YES"/>
+    </entity>
+    <entity name="RealEstateProperty" representedClassName="RealEstateProperty" syncable="YES" codeGenerationType="class">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="realEstateProperties" inverseEntity="Category" syncable="YES"/>
+        <relationship name="realEstateImages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="RealEstateImages" inverseName="realEstateProperty" inverseEntity="RealEstateImages" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Category" positionX="-96.02734375" positionY="-94.55078125" width="128" height="90"/>
+        <element name="RealEstateProperty" positionX="145.2109375" positionY="-139.875" width="128" height="150"/>
+        <element name="RealEstateImages" positionX="-36" positionY="36" width="128" height="90"/>
+    </elements>
+</model>

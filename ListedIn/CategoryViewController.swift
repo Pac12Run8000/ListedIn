@@ -12,7 +12,7 @@ class CategoryViewController: UIViewController {
 
     var categoryTextField:UITextField?
     
-    var categories = [Category]()
+    var categories = [objCategory]()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -101,7 +101,7 @@ extension CategoryViewController {
         let saveDialog = UIAlertAction(title: "Save", style: .default) { [weak self] action in
             
             if let categoryName = self?.categoryTextField?.text {
-                let myCat = Category()
+                let myCat = objCategory()
                 myCat.name = categoryName
                 self?.addCategoryToTableViewAndArray(catagory: myCat)
             }
@@ -126,7 +126,7 @@ extension CategoryViewController {
         present(alertDialog, animated: true, completion: nil)
     }
     
-    private func editCategory(category:Category, indexPath:IndexPath) {
+    private func editCategory(category:objCategory, indexPath:IndexPath) {
         let alert = UIAlertController(title: "", message: "Update the category", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] action in
 
@@ -163,17 +163,17 @@ extension CategoryViewController {
 // MARK:- Udate edit and delete functionality
 extension CategoryViewController {
     
-    private func updateCategory(category:Category, categoryName:String, indexPath:IndexPath) {
+    private func updateCategory(category:objCategory, categoryName:String, indexPath:IndexPath) {
         category.name = categoryName
         self.tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
-    private func deleteCategory(input:Category, indexPath:IndexPath) {
+    private func deleteCategory(input:objCategory, indexPath:IndexPath) {
         self.categories.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
-    private func addCategoryToTableViewAndArray(catagory:Category)  {
+    private func addCategoryToTableViewAndArray(catagory:objCategory)  {
         self.categories.insert(catagory, at: 0)
         let indexPath = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [indexPath], with: .left)

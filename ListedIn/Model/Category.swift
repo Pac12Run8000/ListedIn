@@ -8,13 +8,13 @@
 
 import Foundation
 
-class Category {
-    
+class objCategory {
+
     var name:String?
-    
+
     init() {
         self.name = nil
     }
-    
-    
+
+
 }
