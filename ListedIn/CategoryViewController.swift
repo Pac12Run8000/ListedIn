@@ -15,12 +15,22 @@ class CategoryViewController: UIViewController {
 
     var categoryTextField:UITextField?
     
-    var categories = [objCategory]()
+    var categories = [Category]()
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let fetchRequest:NSFetchRequest<Category> = Category.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        if let result = try? dataController.viewContext.fetch(fetchRequest) {
+            categories = result
+            tableView.reloadData()
+            print("Data fetched!!!")
+        }
         
         setTheDelegateAndDataSource()
         setDynamicRowHeight()
@@ -80,10 +90,21 @@ extension CategoryViewController:UITableViewDataSource, UITableViewDelegate {
         
         
         let editAction = UITableViewRowAction(style: .default, title: "Edit") { (rowAction, indexPath) in
+            
             self.editCategory(category: category, indexPath: indexPath)
         }
         
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (rowAction, indexPath) in
+            
+            if let categoryToDelete = self.categories[indexPath.row] as? Category {
+                self.dataController.viewContext.delete(categoryToDelete)
+                do {
+                    try self.dataController.viewContext.save()
+                    print("Deletion successful. Saving context successful.")
+                } catch {
+                    print("There was an error deleting category.")
+                }
+            }
             self.deleteCategory(input: category, indexPath: indexPath)
         }
         editAction.backgroundColor = .blue
@@ -104,8 +125,20 @@ extension CategoryViewController {
         let saveDialog = UIAlertAction(title: "Save", style: .default) { [weak self] action in
             
             if let categoryName = self?.categoryTextField?.text {
-                let myCat = objCategory()
+                guard let viewContext = self?.dataController.viewContext else {
+                    print("There was an error adding a category")
+                    return
+                }
+                let myCat = Category(context: viewContext)
                 myCat.name = categoryName
+                myCat.creationDate = Date()
+                
+                do {
+                    try self!.dataController.viewContext.save()
+                    print("The data was saved!!!")
+                } catch {
+                    print("There was an error:\(error.localizedDescription)")
+                }
                 self?.addCategoryToTableViewAndArray(catagory: myCat)
             }
         }
@@ -129,7 +162,7 @@ extension CategoryViewController {
         present(alertDialog, animated: true, completion: nil)
     }
     
-    private func editCategory(category:objCategory, indexPath:IndexPath) {
+    private func editCategory(category:Category, indexPath:IndexPath) {
         let alert = UIAlertController(title: "", message: "Update the category", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] action in
 
@@ -144,7 +177,7 @@ extension CategoryViewController {
         saveAction.isEnabled = false
         
         alert.addTextField { (textField) in
-//            textField.placeholder = "Update category"
+
             textField.text = category.name
             NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: .main, using: { (notification) in
                     if let text = textField.text, !text.isEmpty, text != "" {
@@ -166,18 +199,25 @@ extension CategoryViewController {
 // MARK:- Udate edit and delete functionality
 extension CategoryViewController {
     
-    private func updateCategory(category:objCategory, categoryName:String, indexPath:IndexPath) {
+    private func updateCategory(category:Category, categoryName:String, indexPath:IndexPath) {
         category.name = categoryName
+        
+        do {
+            try dataController.viewContext.save()
+        } catch {
+            print("An error occurred saving the update:\(error.localizedDescription)")
+        }
         self.tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
-    private func deleteCategory(input:objCategory, indexPath:IndexPath) {
+    private func deleteCategory(input:Category, indexPath:IndexPath) {
         self.categories.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
-    private func addCategoryToTableViewAndArray(catagory:objCategory)  {
+    private func addCategoryToTableViewAndArray(catagory:Category)  {
         self.categories.insert(catagory, at: 0)
+        
         let indexPath = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [indexPath], with: .left)
     }
