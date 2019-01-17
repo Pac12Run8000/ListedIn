@@ -15,6 +15,7 @@
 		091FC07421EDBD93004FAA7A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091FC07321EDBD93004FAA7A /* Extensions.swift */; };
 		091FC07721EF72A1004FAA7A /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091FC07621EF72A1004FAA7A /* Category.swift */; };
 		091FC07A21EFE0CC004FAA7A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 091FC07821EFE0CC004FAA7A /* Model.xcdatamodeld */; };
+		091FC07C21F0293F004FAA7A /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091FC07B21F0293F004FAA7A /* DataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		091FC07321EDBD93004FAA7A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		091FC07621EF72A1004FAA7A /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		091FC07921EFE0CC004FAA7A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		091FC07B21F0293F004FAA7A /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 			children = (
 				091FC07621EF72A1004FAA7A /* Category.swift */,
 				091FC07821EFE0CC004FAA7A /* Model.xcdatamodeld */,
+				091FC07B21F0293F004FAA7A /* DataController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				091FC06321EDBC56004FAA7A /* CategoryViewController.swift in Sources */,
+				091FC07C21F0293F004FAA7A /* DataController.swift in Sources */,
 				091FC07421EDBD93004FAA7A /* Extensions.swift in Sources */,
 				091FC07A21EFE0CC004FAA7A /* Model.xcdatamodeld in Sources */,
 				091FC06121EDBC56004FAA7A /* AppDelegate.swift in Sources */,

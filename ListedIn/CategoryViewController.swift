@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import CoreData
 
 class CategoryViewController: UIViewController {
+    
+    var dataController:DataController!
 
     var categoryTextField:UITextField?
     
