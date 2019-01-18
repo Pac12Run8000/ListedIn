@@ -22,14 +22,8 @@ class CategoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let fetchRequest:NSFetchRequest<Category> = Category.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        if let result = try? dataController.viewContext.fetch(fetchRequest) {
-            categories = result
-            tableView.reloadData()
-            print("Data fetched!!!")
+        if let myCategories = initialLoadOfCategoriesFromCoreData() {
+            categories = myCategories
         }
         
         setTheDelegateAndDataSource()
@@ -49,6 +43,64 @@ class CategoryViewController: UIViewController {
     
 
 
+}
+
+// MARK:- CoreData functionality
+extension CategoryViewController {
+    
+    func addCategoryToCoreData(viewContext:NSManagedObjectContext, categoryName:String, completionHandler:@escaping (_ success:Bool,_ category:Category?) -> ()) {
+        let addCategory = Category(context: viewContext)
+        addCategory.name = categoryName
+        addCategory.creationDate = Date()
+        
+        do {
+            try self.dataController.viewContext.save()
+            completionHandler(true, addCategory)
+            print("The data was saved!!!")
+        } catch {
+            print("There was an error:\(error.localizedDescription)")
+            completionHandler(false, nil)
+        }
+        
+    }
+    
+    func updateCategoryInCoreData(completionHandler: @escaping (_ isSaved:Bool) -> ()) {
+        do {
+            try dataController.viewContext.save()
+            completionHandler(true)
+        } catch {
+            print("An error occurred saving the update:\(error.localizedDescription)")
+            completionHandler(false)
+        }
+    }
+    
+    func deleteCategoryFromCoreData(indexPath:IndexPath, completionHandler: @escaping (_ success:Bool) -> ()) {
+        if let categoryToDelete = self.categories[indexPath.row] as? Category {
+            self.dataController.viewContext.delete(categoryToDelete)
+            do {
+                try self.dataController.viewContext.save()
+                print("Deletion successful. Saving context successful.")
+                completionHandler(true)
+            } catch {
+                print("There was an error deleting category.")
+                completionHandler(false)
+            }
+        }
+    }
+    
+    func initialLoadOfCategoriesFromCoreData() -> [Category]? {
+        let fetchRequest:NSFetchRequest<Category> = Category.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        if let result = try? dataController.viewContext.fetch(fetchRequest) {
+//            categories = result
+            tableView.reloadData()
+            return result
+        }
+        return nil
+    }
+    
 }
 
 
@@ -88,24 +140,17 @@ extension CategoryViewController:UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let category = categories[indexPath.row]
         
-        
         let editAction = UITableViewRowAction(style: .default, title: "Edit") { (rowAction, indexPath) in
-            
             self.editCategory(category: category, indexPath: indexPath)
         }
         
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (rowAction, indexPath) in
-            
-            if let categoryToDelete = self.categories[indexPath.row] as? Category {
-                self.dataController.viewContext.delete(categoryToDelete)
-                do {
-                    try self.dataController.viewContext.save()
-                    print("Deletion successful. Saving context successful.")
-                } catch {
-                    print("There was an error deleting category.")
+            self.deleteCategoryFromCoreData(indexPath: indexPath, completionHandler: { (success) in
+                if (success) {
+                    self.deleteCategoryFromTableView(input: category, indexPath: indexPath)
                 }
-            }
-            self.deleteCategory(input: category, indexPath: indexPath)
+            })
+            
         }
         editAction.backgroundColor = .blue
         deleteAction.backgroundColor = .red
@@ -129,17 +174,13 @@ extension CategoryViewController {
                     print("There was an error adding a category")
                     return
                 }
-                let myCat = Category(context: viewContext)
-                myCat.name = categoryName
-                myCat.creationDate = Date()
-                
-                do {
-                    try self!.dataController.viewContext.save()
-                    print("The data was saved!!!")
-                } catch {
-                    print("There was an error:\(error.localizedDescription)")
-                }
-                self?.addCategoryToTableViewAndArray(catagory: myCat)
+                var addCategory:Category!
+                self?.addCategoryToCoreData(viewContext: viewContext, categoryName: categoryName, completionHandler: { (success, category) in
+                    if (success) {
+                        addCategory = category
+                        self?.addCategoryToTableViewAndArray(catagory: addCategory)
+                    }
+                })
             }
         }
         
@@ -202,15 +243,14 @@ extension CategoryViewController {
     private func updateCategory(category:Category, categoryName:String, indexPath:IndexPath) {
         category.name = categoryName
         
-        do {
-            try dataController.viewContext.save()
-        } catch {
-            print("An error occurred saving the update:\(error.localizedDescription)")
+        updateCategoryInCoreData { (success) in
+            if (success) {
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
         }
-        self.tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
-    private func deleteCategory(input:Category, indexPath:IndexPath) {
+    private func deleteCategoryFromTableView(input:Category, indexPath:IndexPath) {
         self.categories.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
