@@ -49,6 +49,7 @@ class CategoryViewController: UIViewController {
 extension CategoryViewController {
     
     func addCategoryToCoreData(viewContext:NSManagedObjectContext, categoryName:String, completionHandler:@escaping (_ success:Bool,_ category:Category?) -> ()) {
+        
         let addCategory = Category(context: viewContext)
         addCategory.name = categoryName
         addCategory.creationDate = Date()
@@ -179,6 +180,8 @@ extension CategoryViewController {
                     if (success) {
                         addCategory = category
                         self?.addCategoryToTableViewAndArray(catagory: addCategory)
+                    } else {
+                        print("There was an error adding a category to CoreData.")
                     }
                 })
             }
@@ -237,7 +240,7 @@ extension CategoryViewController {
     
 }
 
-// MARK:- Udate edit and delete functionality
+// MARK:- Update, add and delete functionality for the tableView
 extension CategoryViewController {
     
     private func updateCategory(category:Category, categoryName:String, indexPath:IndexPath) {
