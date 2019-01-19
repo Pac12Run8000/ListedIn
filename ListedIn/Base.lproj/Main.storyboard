@@ -83,13 +83,47 @@
                     <view key="view" contentMode="scaleToFill" id="fUl-bm-ONj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RQ7-K0-8sm">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="ccx-xx-s79" rowHeight="119" style="IBUITableViewCellStyleDefault" id="ftf-xa-0O0" customClass="PropertyCustomCell" customModule="ListedIn" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="119"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ftf-xa-0O0" id="ELK-cS-E9t">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="118.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ccx-xx-s79">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="118.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="RQ7-K0-8sm" firstAttribute="top" secondItem="3Sl-5N-A7d" secondAttribute="top" id="Ryt-ak-CZO"/>
+                            <constraint firstItem="3Sl-5N-A7d" firstAttribute="trailing" secondItem="RQ7-K0-8sm" secondAttribute="trailing" id="fs4-Gb-f32"/>
+                            <constraint firstItem="RQ7-K0-8sm" firstAttribute="leading" secondItem="3Sl-5N-A7d" secondAttribute="leading" id="nU5-WS-Xgb"/>
+                            <constraint firstItem="3Sl-5N-A7d" firstAttribute="bottom" secondItem="RQ7-K0-8sm" secondAttribute="bottom" id="z68-k5-B71"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="3Sl-5N-A7d"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="RQ7-K0-8sm" id="X0W-XK-AvT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uBz-2F-wZ1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2334" y="125"/>
+            <point key="canvasLocation" x="2333.5999999999999" y="124.58770614692655"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IJ6-3B-zth">
