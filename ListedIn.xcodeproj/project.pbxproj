@@ -17,6 +17,7 @@
 		091FC07A21EFE0CC004FAA7A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 091FC07821EFE0CC004FAA7A /* Model.xcdatamodeld */; };
 		091FC07C21F0293F004FAA7A /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091FC07B21F0293F004FAA7A /* DataController.swift */; };
 		091FC07F21F30F24004FAA7A /* RealEstatePropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091FC07E21F30F24004FAA7A /* RealEstatePropertyViewController.swift */; };
+		091FC08321F3A29C004FAA7A /* addAddressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091FC08221F3A29C004FAA7A /* addAddressController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		091FC07921EFE0CC004FAA7A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		091FC07B21F0293F004FAA7A /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		091FC07E21F30F24004FAA7A /* RealEstatePropertyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealEstatePropertyViewController.swift; sourceTree = "<group>"; };
+		091FC08221F3A29C004FAA7A /* addAddressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addAddressController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				091FC06221EDBC56004FAA7A /* CategoryViewController.swift */,
 				091FC07E21F30F24004FAA7A /* RealEstatePropertyViewController.swift */,
+				091FC08221F3A29C004FAA7A /* addAddressController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				091FC08321F3A29C004FAA7A /* addAddressController.swift in Sources */,
 				091FC06321EDBC56004FAA7A /* CategoryViewController.swift in Sources */,
 				091FC07C21F0293F004FAA7A /* DataController.swift in Sources */,
 				091FC07421EDBD93004FAA7A /* Extensions.swift in Sources */,

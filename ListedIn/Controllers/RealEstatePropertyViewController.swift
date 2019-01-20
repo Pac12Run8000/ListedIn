@@ -35,7 +35,10 @@ class RealEstatePropertyViewController: UIViewController {
         
     }
     
-
+    @IBAction func addAddressAction(_ sender: Any) {
+        print("Working")
+    }
+    
    
 
 }
