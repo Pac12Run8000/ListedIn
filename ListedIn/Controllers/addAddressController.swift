@@ -9,35 +9,52 @@
 import UIKit
 
 class addAddressController: UIViewController {
-
-    @IBOutlet weak var cancelButtonOutlet: UIButton!
     
+    var addressPredictions:[String]!
+
+    @IBOutlet weak var searchBarOutlet: UISearchBar!
+    
+    
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addressPredictions = ["San Antonio TX", "Houston TX", "Dallas TX", "Austin TX", "New Haven CT", "New York, NY", "Detroit, MI", "Chicago IL"]
+        
         view.backgroundColor = UIColor.darkgreen
         
-        setupCancelButton()
         
+        tableView.delegate = self
+        tableView.dataSource = self
         
         
     }
     
 
-    @IBAction func cancelButtonAction(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
+    
     
 
 }
 
-extension addAddressController {
-    private func setupCancelButton() {
-        cancelButtonOutlet.layer.borderColor = UIColor.brightGreen_1.cgColor
-        cancelButtonOutlet.layer.borderWidth = 3
-        cancelButtonOutlet.layer.masksToBounds = true
-        cancelButtonOutlet.tintColor = UIColor.brightGreen_1
-        cancelButtonOutlet.setTitle("cancel", for: .normal)
+
+extension addAddressController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return addressPredictions.count
     }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = addressPredictions[indexPath.row]
+        return cell
+    }
+    
+    
+}
+
+
+// MARK:- Button attributes are set up here
+extension addAddressController {
+    
 }

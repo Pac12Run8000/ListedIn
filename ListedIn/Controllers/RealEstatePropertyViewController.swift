@@ -35,9 +35,7 @@ class RealEstatePropertyViewController: UIViewController {
         
     }
     
-    @IBAction func addAddressAction(_ sender: Any) {
-        print("Working")
-    }
+   
     
    
 
@@ -59,6 +57,10 @@ extension RealEstatePropertyViewController: UITableViewDataSource, UITableViewDe
         cell.backgroundColor = UIColor.greenCyan
         cell.textLabel?.textColor = UIColor.white
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     
