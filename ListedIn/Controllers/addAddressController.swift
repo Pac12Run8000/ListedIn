@@ -10,8 +10,8 @@ import UIKit
 
 class addAddressController: UIViewController {
     
-    var addresses:[String]!
-    var addressPredictions:[String] = [String]()
+    var addresses:[Address]!
+    var addressPredictions:[Address] = [Address]()
     var isSearching:Bool = false
 
     @IBOutlet weak var searchBarOutlet: UISearchBar!
@@ -22,20 +22,33 @@ class addAddressController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addresses = ["Current Location", "San Antonio TX", "Houston TX", "Dallas TX", "Austin TX", "New Haven CT", "New York, NY", "Detroit, MI", "Chicago IL"]
+        
         
         view.backgroundColor = UIColor.darkgreen
         
         
         searchBarOutlet.delegate = self
+        searchBarOutlet.becomeFirstResponder()
+        
+       
         
         tableView.delegate = self
         tableView.dataSource = self
-        
+        addresses = populateAddressArray()
         
     }
     
-
+    private func populateAddressArray() -> [Address] {
+        var addressArray = [Address]()
+        var addresses = ["Current Location", "San Antonio TX", "Houston TX", "Dallas TX", "Austin TX", "New Haven CT", "New York, NY", "Detroit, MI", "Chicago IL"]
+        
+        for item in addresses {
+            var myAddress = Address()
+            myAddress.name = item
+            addressArray.append(myAddress)
+        }
+        return addressArray
+    }
     
     
 
@@ -50,18 +63,16 @@ extension addAddressController: UITableViewDelegate, UITableViewDataSource {
         } else {
             return addresses.count
         }
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         if isSearching {
-            cell.textLabel?.text = addressPredictions[indexPath.row]
-            cell.textLabel?.textColor = addressPredictions[indexPath.row] == "Current Location" ? UIColor.greenCyan : UIColor.black
+            cell.textLabel?.text = addressPredictions[indexPath.row].name
+            cell.textLabel?.textColor = addressPredictions[indexPath.row].name == "Current Location" ? UIColor.greenCyan : UIColor.black
         } else {
-            cell.textLabel?.text = addresses[indexPath.row]
-            cell.textLabel?.textColor = addresses[indexPath.row] == "Current Location" ? UIColor.greenCyan : UIColor.black
+            cell.textLabel?.text = addresses[indexPath.row].name
+            cell.textLabel?.textColor = addresses[indexPath.row].name == "Current Location" ? UIColor.greenCyan : UIColor.black
         }
         return cell
     }
@@ -69,11 +80,13 @@ extension addAddressController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if isSearching {
-            searchBarOutlet.text = addressPredictions[indexPath.row]
+            searchBarOutlet.text = addressPredictions[indexPath.row].name
         } else {
-            searchBarOutlet.text = addresses[indexPath.row]
+            searchBarOutlet.text = addresses[indexPath.row].name
         }
     }
+    
+    
     
     
 }
@@ -93,14 +106,12 @@ extension addAddressController: UISearchBarDelegate {
     
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        addressPredictions = addresses.filter({$0.lowercased().prefix(searchText.count) == searchText.lowercased()})
+        addressPredictions = addresses.filter({ (place:Address) -> Bool in
+            place.name!.lowercased().prefix(searchText.count) == searchText.lowercased()
+        })
         isSearching = true
         tableView.reloadData()
     }
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        if searchBar.text == "" {
-            searchBar.text = "Current Location"
-        }
-    }
+    
 }
