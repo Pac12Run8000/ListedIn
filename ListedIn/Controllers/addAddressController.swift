@@ -10,7 +10,9 @@ import UIKit
 
 class addAddressController: UIViewController {
     
-    var addressPredictions:[String]!
+    var addresses:[String]!
+    var addressPredictions:[String] = [String]()
+    var isSearching:Bool = false
 
     @IBOutlet weak var searchBarOutlet: UISearchBar!
     
@@ -20,10 +22,10 @@ class addAddressController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addressPredictions = ["San Antonio TX", "Houston TX", "Dallas TX", "Austin TX", "New Haven CT", "New York, NY", "Detroit, MI", "Chicago IL"]
+        addresses = ["San Antonio TX", "Houston TX", "Dallas TX", "Austin TX", "New Haven CT", "New York, NY", "Detroit, MI", "Chicago IL"]
         
         view.backgroundColor = UIColor.darkgreen
-        
+        searchBarOutlet.delegate = self
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -40,13 +42,22 @@ class addAddressController: UIViewController {
 
 extension addAddressController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return addressPredictions.count
+        if isSearching {
+            return addressPredictions.count
+        } else {
+            return addresses.count
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = addressPredictions[indexPath.row]
+        if isSearching {
+            cell.textLabel?.text = addressPredictions[indexPath.row]
+        } else {
+            cell.textLabel?.text = addresses[indexPath.row]
+        }
         return cell
     }
     
@@ -54,7 +65,20 @@ extension addAddressController: UITableViewDelegate, UITableViewDataSource {
 }
 
 
-// MARK:- Button attributes are set up here
-extension addAddressController {
+// MARK:- SearchBar Delegate
+extension addAddressController: UISearchBarDelegate {
     
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        dismiss(animated: true) {
+            self.isSearching = false
+            self.searchBarOutlet.text = ""
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        addressPredictions = addresses.filter({$0.lowercased().prefix(searchText.count) == searchText.lowercased()})
+        isSearching = true
+        tableView.reloadData()
+    }
 }
