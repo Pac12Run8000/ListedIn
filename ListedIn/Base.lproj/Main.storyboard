@@ -139,58 +139,13 @@
                     <view key="view" contentMode="scaleToFill" id="O1i-uT-Q8S">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <searchBar contentMode="redraw" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cyw-PH-LzO">
-                                <rect key="frame" x="0.0" y="40" width="375" height="56"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="gDP-1E-483"/>
-                                </constraints>
-                                <color key="tintColor" red="0.85882352941176465" green="1" blue="0.23921568627450979" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="barTintColor" red="0.54117647058823526" green="0.79607843137254897" blue="0.73333333333333328" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9nT-qR-6ud">
-                                <rect key="frame" x="0.0" y="96" width="375" height="527"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="bP6-ZU-atG" style="IBUITableViewCellStyleDefault" id="em9-o5-e2v">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="em9-o5-e2v" id="kOZ-tD-020">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bP6-ZU-atG">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="9nT-qR-6ud" firstAttribute="top" secondItem="cyw-PH-LzO" secondAttribute="bottom" id="3So-gS-4TL"/>
-                            <constraint firstItem="9nT-qR-6ud" firstAttribute="leading" secondItem="UBE-xE-9Ip" secondAttribute="leading" id="4fY-FX-2HY"/>
-                            <constraint firstItem="cyw-PH-LzO" firstAttribute="top" secondItem="UBE-xE-9Ip" secondAttribute="top" constant="20" id="6Fs-Ip-i3f"/>
-                            <constraint firstItem="UBE-xE-9Ip" firstAttribute="bottom" secondItem="9nT-qR-6ud" secondAttribute="bottom" id="6zl-6G-z55"/>
-                            <constraint firstItem="UBE-xE-9Ip" firstAttribute="trailing" secondItem="9nT-qR-6ud" secondAttribute="trailing" id="WPH-7Q-ef8"/>
-                            <constraint firstItem="cyw-PH-LzO" firstAttribute="trailing" secondItem="UBE-xE-9Ip" secondAttribute="trailing" id="rCN-GI-COF"/>
-                            <constraint firstItem="cyw-PH-LzO" firstAttribute="leading" secondItem="UBE-xE-9Ip" secondAttribute="leading" id="xrI-ZX-f21"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="UBE-xE-9Ip"/>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="searchBarOutlet" destination="cyw-PH-LzO" id="eQB-in-H0D"/>
                         <outlet property="searchDisplayController" destination="Z4D-Du-vZB" id="WWz-JZ-kdd"/>
-                        <outlet property="tableView" destination="9nT-qR-6ud" id="qah-fw-K3d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ze6-rc-pOM" userLabel="First Responder" sceneMemberID="firstResponder"/>
