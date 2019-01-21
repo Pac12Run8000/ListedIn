@@ -120,7 +120,7 @@
                     <navigationItem key="navigationItem" id="qFB-yt-HBs">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="bj5-LI-aKQ">
                             <connections>
-                                <segue destination="GaL-0j-12I" kind="presentation" id="ebG-B1-9JQ"/>
+                                <segue destination="GaL-0j-12I" kind="show" id="kUL-D6-jDI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -139,12 +139,31 @@
                     <view key="view" contentMode="scaleToFill" id="O1i-uT-Q8S">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="SFl-D7-WKm">
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="SFl-D7-WKm" firstAttribute="top" secondItem="UBE-xE-9Ip" secondAttribute="top" id="3Qn-lZ-83J"/>
+                            <constraint firstItem="UBE-xE-9Ip" firstAttribute="bottom" secondItem="SFl-D7-WKm" secondAttribute="bottom" id="Eqv-N3-7qO"/>
+                            <constraint firstItem="UBE-xE-9Ip" firstAttribute="trailing" secondItem="SFl-D7-WKm" secondAttribute="trailing" id="T4p-MJ-oTH"/>
+                            <constraint firstItem="SFl-D7-WKm" firstAttribute="leading" secondItem="UBE-xE-9Ip" secondAttribute="leading" id="jpn-xy-SdL"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="UBE-xE-9Ip"/>
                     </view>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="3ep-Ah-ZLE">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="nUy-AM-k0k">
+                            <connections>
+                                <action selector="searchButtonAction:" destination="GaL-0j-12I" id="xbQ-RD-VFg"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="mapView" destination="SFl-D7-WKm" id="V4a-5U-QAL"/>
                         <outlet property="searchDisplayController" destination="Z4D-Du-vZB" id="WWz-JZ-kdd"/>
                     </connections>
                 </viewController>
