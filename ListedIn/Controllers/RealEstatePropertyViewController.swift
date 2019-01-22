@@ -35,7 +35,7 @@ class RealEstatePropertyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       setupTableViewProperties()
+        setupTableViewProperties()
         
         addresses = test_data_populateWithAddresses()
         
@@ -44,16 +44,23 @@ class RealEstatePropertyViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        print("RealEstate:\(String(describing: category.name))")
         
-        
+    }
+
+}
+
+// MARK: PrepareForSegue
+extension RealEstatePropertyViewController {
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "addAddresSegue" {
+            let control = segue.destination as! AddAddressController
+            control.category = category
+        }
     }
     
     
-    
-   
-    
-   
-
 }
 
 

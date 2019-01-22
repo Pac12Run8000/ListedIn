@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="auf-ww-n2A" detailTextLabel="Qgy-q3-dAW" style="IBUITableViewCellStyleSubtitle" id="3wo-w7-h1O">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="auf-ww-n2A" detailTextLabel="Qgy-q3-dAW" style="IBUITableViewCellStyleSubtitle" id="3wo-w7-h1O">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3wo-w7-h1O" id="CHO-Ov-9w5">
@@ -88,7 +88,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="ccx-xx-s79" rowHeight="119" style="IBUITableViewCellStyleDefault" id="ftf-xa-0O0" customClass="PropertyCustomCell" customModule="ListedIn" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="ccx-xx-s79" rowHeight="119" style="IBUITableViewCellStyleDefault" id="ftf-xa-0O0" customClass="PropertyCustomCell" customModule="ListedIn" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="119"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ftf-xa-0O0" id="ELK-cS-E9t">
@@ -120,7 +120,7 @@
                     <navigationItem key="navigationItem" id="qFB-yt-HBs">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="bj5-LI-aKQ">
                             <connections>
-                                <segue destination="GaL-0j-12I" kind="show" id="kUL-D6-jDI"/>
+                                <segue destination="GaL-0j-12I" kind="show" identifier="addAddresSegue" id="kUL-D6-jDI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -135,7 +135,7 @@
         <!--Add Address Controller-->
         <scene sceneID="Mkr-6C-Kz3">
             <objects>
-                <viewController id="GaL-0j-12I" customClass="addAddressController" customModule="ListedIn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="GaL-0j-12I" customClass="AddAddressController" customModule="ListedIn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O1i-uT-Q8S">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
