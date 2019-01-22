@@ -9,13 +9,18 @@
 import UIKit
 import MapKit
 
+
+protocol AddAddressControllerDelegate:class {
+    func AddAddressController(_ controller:AddAddressController, didFinishAdding item:[Address])
+}
+
 class AddAddressController: UIViewController {
     
-    
-    var category:Category!
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     var mainContainer: UIView!
     var viewBackgroundLoading: UIView!
+    
+    weak var delegate:AddAddressControllerDelegate?
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -62,7 +67,7 @@ extension AddAddressController {
     }
 }
 
-// MARK: Test Blahhhh
+
 // MARK:- SearchBarDelegate methods
 extension AddAddressController: UISearchBarDelegate {
     

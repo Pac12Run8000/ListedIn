@@ -8,20 +8,12 @@
 
 import UIKit
 
-//protocol MemeGeneratorViewControllerDelegate:class {
-//
-//    func memeGeneratorViewControllerDidCancel(_ controller:MemeGeneratorViewController)
-//    func memeGeneratorViewController(_ controller:MemeGeneratorViewController, didFinishAdding item:(topText: String, bottomText: String, originalImage: NSData, memedImage: NSData))
-//    func memeGeneratorViewController(_ controller:MemeGeneratorViewController, didFinishEditing item:MemeObj)
-//
-//}
 
-protocol RealEststeNoteDelegate:class {
-    
-
-}
 
 class RealEstatePropertyViewController: UIViewController {
+    
+    
+    
     
     var addresses:[Address] = [Address]()
     
@@ -44,7 +36,6 @@ class RealEstatePropertyViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        print("RealEstate:\(String(describing: category.name))")
         
     }
 
@@ -56,7 +47,7 @@ extension RealEstatePropertyViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addAddresSegue" {
             let control = segue.destination as! AddAddressController
-            control.category = category
+            
         }
     }
     
