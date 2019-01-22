@@ -29,18 +29,26 @@ class addAddressController: UIViewController {
     
     
     @IBAction func searchButtonAction(_ sender: Any) {
+        let searchController = searchControllerForPresentation()
+        present(searchController, animated: true, completion: nil)
+    }
+    
+    
+
+}
+
+
+// MARK:- SearchController functionality
+extension addAddressController {
+    
+    private func searchControllerForPresentation() -> UISearchController {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.delegate = self
         
         searchController.searchBar.barTintColor = UIColor.darkgreen
         searchController.searchBar.tintColor = UIColor.brightGreen_1
-        
-        present(searchController, animated: true, completion: nil)
-        
+        return searchController
     }
-    
-    
-
 }
 
 
@@ -109,8 +117,6 @@ extension addAddressController {
                 }
             }
             self.activityIndicator.stopAnimating()
-        
-        
     }
 }
 
@@ -123,7 +129,7 @@ extension addAddressController {
     
     private func getCoordinatesFromAddress(address:String) {
         
-        var geoCoder = CLGeocoder()
+        let geoCoder = CLGeocoder()
         var coordinate:CLLocationCoordinate2D!
         
         guard let address = address as? String else {
@@ -134,7 +140,7 @@ extension addAddressController {
         geoCoder.geocodeAddressString(address) { (placemarks, error) in
             
             guard error == nil else {
-                print("There was an error getting placemarks:\(error?.localizedDescription)")
+                print("There was an error getting placemarks:\(String(describing: error?.localizedDescription))")
                 return
             }
             
@@ -162,8 +168,6 @@ extension addAddressController {
             annotation.coordinate = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
             self.mapView.addAnnotation(annotation)
         }
-        
-        
     }
 }
 
