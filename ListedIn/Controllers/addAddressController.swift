@@ -9,13 +9,18 @@
 import UIKit
 import MapKit
 
-class addAddressController: UIViewController, UISearchBarDelegate {
+class addAddressController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     
+    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
+    var mainContainer: UIView!
+    var viewBackgroundLoading: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupActivityIndicatorView()
         
         view.backgroundColor = UIColor.greenCyan
         mapView.delegate = self
@@ -38,92 +43,77 @@ class addAddressController: UIViewController, UISearchBarDelegate {
 
 }
 
-extension addAddressController: MKMapViewDelegate {
+
+// MARK:- SearchBarDelegate methods
+extension addAddressController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.startActivityIndicator()
         getCoordinatesFromAddress(address: searchBar.text!)
+        
     }
-    
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        UIApplication.shared.beginIgnoringInteractionEvents()
-//
-//        let activityIndicator = UIActivityIndicatorView()
-//        activityIndicator.style = .whiteLarge
-//        activityIndicator.center = self.view.center
-//        activityIndicator.hidesWhenStopped = true
-//        activityIndicator.startAnimating()
-//        self.view.addSubview(activityIndicator)
-//
-//        searchBar.resignFirstResponder()
-//        dismiss(animated: true, completion: nil)
-//
-//        let searchRequest = MKLocalSearch.Request()
-//        searchRequest.naturalLanguageQuery = searchBar.text
-//
-//        let activeSearch = MKLocalSearch(request: searchRequest)
-//        activeSearch.start { (response, error) in
-//
-//            activityIndicator.stopAnimating()
-//            UIApplication.shared.endIgnoringInteractionEvents()
-//
-//            guard error == nil else {
-//                print("There was an error:\(String(describing: error?.localizedDescription))")
-//                return
-//            }
-//            guard let response = response else {
-//                print("There was no response.")
-//                return
-//            }
-//
-//            let annotations = self.mapView.annotations
-//            self.mapView.removeAnnotations(annotations)
-//
-//            guard let latitude = response.boundingRegion.center.latitude as? CLLocationDegrees, let longitude = response.boundingRegion.center.longitude as? CLLocationDegrees else {
-//                print("There was an error getting the latitude and longitude.")
-//                return
-//            }
-//
-//
-//
-//            let annotation = MKPointAnnotation()
-//            annotation.title = searchBar.text
-//            annotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude)
-//            self.mapView.addAnnotation(annotation)
-//
-//
-//            let coordinate:CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
-//            let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-//            let region = MKCoordinateRegion(center: coordinate, span: span)
-//            self.mapView.setRegion(region, animated: true)
-//        }
-//    }
+}
+
+// MARK:- MKMapViewDelegate methods
+extension addAddressController:  MKMapViewDelegate {
+   
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        self.stopActivityIndicator()
+    }
     
 }
 
 
-//var coordinate:CLLocationCoordinate2D?
-//
-//guard let locationString = locationString as? String else {
-//    completionHandler(nil, "No location was entered.")
-//    return
-//}
-//
-//geocoder.geocodeAddressString(locationString) { (placemarks, error) in
-//    guard error == nil else {
-//        completionHandler(nil, "error:\(String(describing: error?.localizedDescription))")
-//        return
-//    }
-//    var location:CLLocation?
-//
-//    if let placemarks = placemarks, placemarks.count > 0 {
-//        location = placemarks.first?.location
-//    }
-//
-//    if let location = location {
-//        coordinate = location.coordinate
-//        completionHandler(coordinate, nil)
-//    }
-//}
+
+// MARK:- ActivityIndicatorView functionality
+extension addAddressController {
+    
+    private func setupActivityIndicatorView() {
+        activityIndicator.center = self.view.center
+        activityIndicator.style = .whiteLarge
+        activityIndicator.hidesWhenStopped = true
+        
+        mainContainer = UIView(frame: self.view.frame)
+        mainContainer.center = self.view.center
+        mainContainer.backgroundColor = UIColor.white
+        mainContainer.alpha = 0.5
+        mainContainer.tag = 431431
+        
+        
+        viewBackgroundLoading = UIView(frame: CGRect(x:0,y: 0,width: 80,height: 80))
+        viewBackgroundLoading.center = self.view.center
+        viewBackgroundLoading.backgroundColor = UIColor.darkgreen
+        viewBackgroundLoading.alpha = 0.5
+        viewBackgroundLoading.clipsToBounds = true
+        viewBackgroundLoading.layer.cornerRadius = 15
+    }
+    
+    private func startActivityIndicator() {
+        DispatchQueue.main.async {
+            self.activityIndicator.startAnimating()
+            self.viewBackgroundLoading.addSubview(self.activityIndicator)
+            self.mainContainer.addSubview(self.viewBackgroundLoading)
+            
+            self.view.addSubview(self.mainContainer)
+            self.view.addSubview(self.activityIndicator)
+        }
+        
+    }
+    
+    private func stopActivityIndicator() {
+        self.activityIndicator.stopAnimating()
+        
+            for subview in self.view.subviews{
+                if subview.tag == 431431 {
+                    subview.removeFromSuperview()
+                }
+            }
+            self.activityIndicator.stopAnimating()
+        
+        
+    }
+}
+
 
 
 
@@ -132,6 +122,7 @@ extension addAddressController: MKMapViewDelegate {
 extension addAddressController {
     
     private func getCoordinatesFromAddress(address:String) {
+        
         var geoCoder = CLGeocoder()
         var coordinate:CLLocationCoordinate2D!
         
@@ -139,6 +130,7 @@ extension addAddressController {
             print("Please enter a valid address.")
             return
         }
+        
         geoCoder.geocodeAddressString(address) { (placemarks, error) in
             
             guard error == nil else {
@@ -169,18 +161,8 @@ extension addAddressController {
             annotation.title = addressString
             annotation.coordinate = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
             self.mapView.addAnnotation(annotation)
-            
-//            var location:CLLocation?
-//            if let placemarks = placemarks, placemarks.count > 0 {
-//                location = placemarks.first?.location
-//            }
-//            if let location = location {
-//                coordinate = location.coordinate
-//                let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-//                let region = MKCoordinateRegion(center: coordinate, span: span)
-//                self.mapView.setRegion(region, animated: true)
-//            }
         }
+        
         
     }
 }
