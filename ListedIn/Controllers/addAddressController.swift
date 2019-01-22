@@ -27,6 +27,12 @@ class addAddressController: UIViewController {
         
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        print("I left the addAddressController")
+    }
+    
     
     @IBAction func searchButtonAction(_ sender: Any) {
         let searchController = searchControllerForPresentation()
