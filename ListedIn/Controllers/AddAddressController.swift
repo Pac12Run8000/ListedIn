@@ -11,7 +11,7 @@ import MapKit
 
 
 protocol AddAddressControllerDelegate:class {
-    func AddAddressController(_ controller:AddAddressController, didFinishAdding item:[Address])
+    func AddAddressController(_ controller:AddAddressController, didFinishAdding item:Address)
 }
 
 class AddAddressController: UIViewController {
@@ -60,6 +60,8 @@ extension AddAddressController {
     private func searchControllerForPresentation() -> UISearchController {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.delegate = self
+        
+        
         
         searchController.searchBar.barTintColor = UIColor.darkgreen
         searchController.searchBar.tintColor = UIColor.brightGreen_1
@@ -121,18 +123,21 @@ extension AddAddressController {
             self.view.addSubview(self.mainContainer)
             self.view.addSubview(self.activityIndicator)
         }
+        UIApplication.shared.beginIgnoringInteractionEvents()
         
     }
     
     private func stopActivityIndicator() {
         self.activityIndicator.stopAnimating()
-        
+        DispatchQueue.main.async {
             for subview in self.view.subviews{
                 if subview.tag == 431431 {
                     subview.removeFromSuperview()
                 }
             }
             self.activityIndicator.stopAnimating()
+        }
+        UIApplication.shared.endIgnoringInteractionEvents()
     }
 }
 
