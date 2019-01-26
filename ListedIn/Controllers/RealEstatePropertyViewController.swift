@@ -41,13 +41,28 @@ class RealEstatePropertyViewController: UIViewController {
 
 }
 
+
+// MARK:- AddAddressControllerDelegate functionality
+extension RealEstatePropertyViewController: AddAddressControllerDelegate {
+    
+    func AddAddressController(_ controller: AddAddressController, didFinishAdding item: Address) {
+        self.addAddress(address: item)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    
+    
+}
+
+
+
 // MARK: PrepareForSegue
 extension RealEstatePropertyViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addAddresSegue" {
             let control = segue.destination as! AddAddressController
-            
+            control.addressDelegate = self 
         }
     }
     
@@ -115,4 +130,14 @@ extension RealEstatePropertyViewController {
         
         return addressArray
     }
+}
+
+// MARK:- Functions to add address to the TableView
+extension RealEstatePropertyViewController {
+    private func addAddress(address:Address) {
+        self.addresses.insert(address, at: 0)
+        let indexPath = IndexPath(row: 0, section: 0)
+        tableView.insertRows(at: [indexPath], with: .left)
+    }
+    
 }

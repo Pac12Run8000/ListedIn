@@ -7,11 +7,14 @@
 //
 
 import Foundation
+import MapKit
 
 struct Address {
     var name:String?
+    var coordinate:CLLocationCoordinate2D?
     
     init() {
         name = nil
+        coordinate = nil
     }
 }

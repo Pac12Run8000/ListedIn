@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="auf-ww-n2A" detailTextLabel="Qgy-q3-dAW" style="IBUITableViewCellStyleSubtitle" id="3wo-w7-h1O">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="auf-ww-n2A" detailTextLabel="Qgy-q3-dAW" style="IBUITableViewCellStyleSubtitle" id="3wo-w7-h1O">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3wo-w7-h1O" id="CHO-Ov-9w5">
@@ -88,7 +88,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="ccx-xx-s79" rowHeight="119" style="IBUITableViewCellStyleDefault" id="ftf-xa-0O0" customClass="PropertyCustomCell" customModule="ListedIn" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="ccx-xx-s79" rowHeight="119" style="IBUITableViewCellStyleDefault" id="ftf-xa-0O0" customClass="PropertyCustomCell" customModule="ListedIn" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="119"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ftf-xa-0O0" id="ELK-cS-E9t">
@@ -140,30 +140,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="SFl-D7-WKm">
-                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
-                            </mapView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter a valid address" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="nvo-zP-uLl">
+                                <rect key="frame" x="5" y="69" width="365" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="Y21-yS-esp"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jUD-jh-UUB">
+                                <rect key="frame" x="5" y="129" width="365" height="20.5"/>
+                                <color key="backgroundColor" red="0.85882352939999995" green="1" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.14639261740000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="SFl-D7-WKm" firstAttribute="top" secondItem="UBE-xE-9Ip" secondAttribute="top" id="3Qn-lZ-83J"/>
-                            <constraint firstItem="UBE-xE-9Ip" firstAttribute="bottom" secondItem="SFl-D7-WKm" secondAttribute="bottom" id="Eqv-N3-7qO"/>
-                            <constraint firstItem="UBE-xE-9Ip" firstAttribute="trailing" secondItem="SFl-D7-WKm" secondAttribute="trailing" id="T4p-MJ-oTH"/>
-                            <constraint firstItem="SFl-D7-WKm" firstAttribute="leading" secondItem="UBE-xE-9Ip" secondAttribute="leading" id="jpn-xy-SdL"/>
+                            <constraint firstItem="UBE-xE-9Ip" firstAttribute="trailing" secondItem="jUD-jh-UUB" secondAttribute="trailing" constant="5" id="CKe-Ng-loN"/>
+                            <constraint firstItem="nvo-zP-uLl" firstAttribute="leading" secondItem="UBE-xE-9Ip" secondAttribute="leading" constant="5" id="KXF-zU-LUe"/>
+                            <constraint firstItem="jUD-jh-UUB" firstAttribute="top" secondItem="nvo-zP-uLl" secondAttribute="bottom" constant="5" id="Lb9-1i-o9Y"/>
+                            <constraint firstItem="UBE-xE-9Ip" firstAttribute="trailing" secondItem="nvo-zP-uLl" secondAttribute="trailing" constant="5" id="PnA-hh-vN8"/>
+                            <constraint firstItem="nvo-zP-uLl" firstAttribute="top" secondItem="UBE-xE-9Ip" secondAttribute="top" constant="5" id="usa-19-Vhp"/>
+                            <constraint firstItem="jUD-jh-UUB" firstAttribute="leading" secondItem="UBE-xE-9Ip" secondAttribute="leading" constant="5" id="vhN-zc-L44"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UBE-xE-9Ip"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="3ep-Ah-ZLE">
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="nUy-AM-k0k">
-                            <connections>
-                                <action selector="searchButtonAction:" destination="GaL-0j-12I" id="xbQ-RD-VFg"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="3ep-Ah-ZLE"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="mapView" destination="SFl-D7-WKm" id="V4a-5U-QAL"/>
+                        <outlet property="addressTextFieldOutlet" destination="nvo-zP-uLl" id="ncm-eu-LTj"/>
+                        <outlet property="errorLabelOutlet" destination="jUD-jh-UUB" id="Aa1-N7-atJ"/>
                         <outlet property="searchDisplayController" destination="Z4D-Du-vZB" id="WWz-JZ-kdd"/>
                     </connections>
                 </viewController>

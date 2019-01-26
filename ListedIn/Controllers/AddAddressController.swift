@@ -20,18 +20,27 @@ class AddAddressController: UIViewController {
     var mainContainer: UIView!
     var viewBackgroundLoading: UIView!
     
-    weak var delegate:AddAddressControllerDelegate?
     
-    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var addressTextFieldOutlet: UITextField!
+    @IBOutlet weak var errorLabelOutlet: UILabel!
     
+    weak var addressDelegate:AddAddressControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupActivityIndicatorView()
+       
+        errorLabelOutlet.isHidden = true
+        errorLabelOutlet.layer.masksToBounds = true
+        errorLabelOutlet.layer.cornerRadius = 7
+        
+        
+        addressTextFieldOutlet.delegate = self
+        addressTextFieldOutlet.becomeFirstResponder()
+        
         
         view.backgroundColor = UIColor.greenCyan
-        mapView.delegate = self
         
     }
     
@@ -41,54 +50,42 @@ class AddAddressController: UIViewController {
         
     }
     
-   
-    
-    
-    @IBAction func searchButtonAction(_ sender: Any) {
-        let searchController = searchControllerForPresentation()
-        present(searchController, animated: true, completion: nil)
-    }
-    
-    
 
 }
 
 
-// MARK:- SearchController functionality
-extension AddAddressController {
+// MARK:- Textfield delegate functionality
+extension AddAddressController: UITextFieldDelegate {
     
-    private func searchControllerForPresentation() -> UISearchController {
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchBar.delegate = self
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let textFieldText = textField.text, !textFieldText.isEmpty else {
+            errorLabelOutlet.isHidden = false
+            errorLabelOutlet.text = "Please enter an address."
+            return false
+        }
+        startActivityIndicator()
+        IsValidAddressConvertedFromCoordinates(address: textFieldText) { (success, coord, error) in
+            if (success!) {
+                self.errorLabelOutlet.isHidden = true
+                self.errorLabelOutlet.text = ""
+                var myAddress = Address()
+                myAddress.name = textFieldText
+                myAddress.coordinate = coord
+                self.addressDelegate?.AddAddressController(self, didFinishAdding: myAddress)
+                self.stopActivityIndicator()
+            } else {
+                self.errorLabelOutlet.isHidden = false
+                if let errDesc = error?.localizedDescription {
+                    self.errorLabelOutlet.text = "\(String(describing: errDesc))"
+                }
+                self.stopActivityIndicator()
+            }
+        }
+        return true
         
-        
-        
-        searchController.searchBar.barTintColor = UIColor.darkgreen
-        searchController.searchBar.tintColor = UIColor.brightGreen_1
-        return searchController
-    }
-}
-
-
-// MARK:- SearchBarDelegate methods
-extension AddAddressController: UISearchBarDelegate {
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.startActivityIndicator()
-        getCoordinatesFromAddress(address: searchBar.text!)
-        
-    }
-}
-
-// MARK:- MKMapViewDelegate methods
-extension AddAddressController:  MKMapViewDelegate {
-   
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        self.stopActivityIndicator()
     }
     
 }
-
 
 
 // MARK:- ActivityIndicatorView functionality
@@ -141,56 +138,64 @@ extension AddAddressController {
     }
 }
 
-
-
-
-
-// MARK: Geocoding functionality
+// MARK:- This is the geolocation functionality
 extension AddAddressController {
     
-    private func getCoordinatesFromAddress(address:String) {
+    
+    private func IsValidAddressConvertedFromCoordinates(address:String, completion:@escaping (_ success:Bool?,_ coords:CLLocationCoordinate2D?,_ myError:Error?) ->()) {
         
         let geoCoder = CLGeocoder()
         var coordinate:CLLocationCoordinate2D!
         
         guard let address = address as? String else {
             print("Please enter a valid address.")
+            completion(false, nil, nil)
             return
         }
         
         geoCoder.geocodeAddressString(address) { (placemarks, error) in
-            
             guard error == nil else {
                 print("There was an error getting placemarks:\(String(describing: error?.localizedDescription))")
+                completion(false, nil, error)
                 return
             }
             
             guard let placemarks = placemarks, placemarks.count > 0 else {
                 print("There was an error getting placemarks.")
+                completion(false, nil, nil)
                 return
             }
             
             guard let location = placemarks.first?.location else {
                 print("There was an error getting the location.")
+                completion(false, nil, nil)
                 return
             }
             coordinate = location.coordinate
             let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
             let region = MKCoordinateRegion(center: coordinate, span: span)
-            self.mapView.setRegion(region, animated: true)
+            //            self.mapView.setRegion(region, animated: true)
             
             guard let addressString = address as? String, !addressString.isEmpty else {
                 print("There was an error with the address input.")
+                completion(false, nil, nil)
                 return
             }
             
-            let annotation = MKPointAnnotation()
-            annotation.title = addressString
-            annotation.coordinate = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
-            self.mapView.addAnnotation(annotation)
+            guard let coordinate = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude) as? CLLocationCoordinate2D else {
+                completion(false, nil, nil)
+                return
+            }
+            
+            completion(true,coordinate,nil)
         }
+        
     }
+    
 }
+
+
+
 
 
 
