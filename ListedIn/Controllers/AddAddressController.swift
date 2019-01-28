@@ -11,7 +11,7 @@ import MapKit
 
 
 protocol AddAddressControllerDelegate:class {
-    func AddAddressController(_ controller:AddAddressController, didFinishAdding item:Address)
+    func AddAddressController(_ controller:AddAddressController, didFinishAdding item:(address:String?, coordinate:CLLocationCoordinate2D?))
 }
 
 class AddAddressController: UIViewController {
@@ -68,10 +68,7 @@ extension AddAddressController: UITextFieldDelegate {
             if (success!) {
                 self.errorLabelOutlet.isHidden = true
                 self.errorLabelOutlet.text = ""
-                var myAddress = Address()
-                myAddress.name = textFieldText
-                myAddress.coordinate = coord
-                self.addressDelegate?.AddAddressController(self, didFinishAdding: myAddress)
+                self.addressDelegate?.AddAddressController(self, didFinishAdding: (address: textFieldText, coordinate: coord))
                 self.stopActivityIndicator()
             } else {
                 self.errorLabelOutlet.isHidden = false

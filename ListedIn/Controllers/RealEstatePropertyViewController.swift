@@ -7,35 +7,31 @@
 //
 
 import UIKit
-
+import MapKit
+import CoreData
 
 
 class RealEstatePropertyViewController: UIViewController {
     
     
     
-    
-    var addresses:[Address] = [Address]()
-    
     var dataController:DataController!
     var category:Category!
+    var fetchedResultsController:NSFetchedResultsController<RealEstateProperty>!
+    
     @IBOutlet weak var tableView: UITableView!
-   
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupTableViewProperties()
         
-        addresses = test_data_populateWithAddresses()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        setupfetchedResultsController()
         
     }
 
@@ -45,10 +41,12 @@ class RealEstatePropertyViewController: UIViewController {
 // MARK:- AddAddressControllerDelegate functionality
 extension RealEstatePropertyViewController: AddAddressControllerDelegate {
     
-    func AddAddressController(_ controller: AddAddressController, didFinishAdding item: Address) {
-        self.addAddress(address: item)
+    func AddAddressController(_ controller: AddAddressController, didFinishAdding item: (address: String?, coordinate: CLLocationCoordinate2D?)) {
+        saveRealEstate(address: item.address, coordinate: item.coordinate)
         navigationController?.popViewController(animated: true)
     }
+    
+    
     
     
     
@@ -76,12 +74,13 @@ extension RealEstatePropertyViewController: UITableViewDataSource, UITableViewDe
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return addresses.count
+        return fetchedResultsController.sections?[0].numberOfObjects ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let realEstate = fetchedResultsController.object(at: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel!.text = addresses[indexPath.row].name
+        cell.textLabel!.text = realEstate.address
         cell.backgroundColor = UIColor.greenCyan
         cell.textLabel?.textColor = UIColor.white
         return cell
@@ -111,33 +110,43 @@ extension RealEstatePropertyViewController {
     
 }
 
-// MARK:- Dummy address array data
-extension RealEstatePropertyViewController {
+// MARK:- CoreData functionality
+extension RealEstatePropertyViewController: NSFetchedResultsControllerDelegate {
     
-    private func test_data_populateWithAddresses() -> [Address] {
-        
-        var addressArray = [Address]()
-        let outputaddresses = ["1810 San Jose Ave. Alameda CA 94501", "20284 Fenmore St, Detroit MI", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco", "laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."]
-        
-        
-        
-        for item in outputaddresses {
-            var address = Address()
-            address.name = item
-            addressArray.append(address)
+    private func saveRealEstate(address:String?, coordinate:CLLocationCoordinate2D?) {
+        let realEstate = RealEstateProperty(context: dataController.viewContext)
+        realEstate.address = address
+        realEstate.latitude = (coordinate?.latitude)!
+        realEstate.longitude = (coordinate?.longitude)!
+        realEstate.note = ""
+        realEstate.creationDate = Date()
+        realEstate.category = category
+        do {
+            try dataController.viewContext.save()
+            print("Data has been saved.")
+        } catch {
+            print("There was an error:\(error.localizedDescription)")
         }
+    }
+    
+    private func setupfetchedResultsController() {
+        let fetchRequest:NSFetchRequest<RealEstateProperty> = RealEstateProperty.fetchRequest()
+        let predicate = NSPredicate(format: "category == %@", category)
+        fetchRequest.predicate = predicate
+        let sortDescriptor = [NSSortDescriptor(key: "address", ascending: false)]
+        fetchRequest.sortDescriptors = sortDescriptor
         
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self
         
-        return addressArray
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalError("The fetch could not be performed: \(error.localizedDescription)")
+        }
     }
 }
 
-// MARK:- Functions to add address to the TableView
-extension RealEstatePropertyViewController {
-    private func addAddress(address:Address) {
-        self.addresses.insert(address, at: 0)
-        let indexPath = IndexPath(row: 0, section: 0)
-        tableView.insertRows(at: [indexPath], with: .left)
-    }
-    
-}
+
+
+
