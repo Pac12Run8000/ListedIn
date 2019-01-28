@@ -268,17 +268,6 @@ extension CategoryViewController {
 // MARK:- PrepareForSegue functionality
 extension CategoryViewController {
     
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        // If this is a NotesListViewController, we'll configure its `Notebook`
-//        if let vc = segue.destination as? NotesListViewController {
-//            if let indexPath = tableView.indexPathForSelectedRow {
-//                vc.notebook = fetchedResultsController.object(at: indexPath)
-//                vc.dataController = dataController
-//            }
-//        }
-//    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let viewController = segue.destination as? RealEstatePropertyViewController {
             if let indexPath = tableView.indexPathForSelectedRow {

@@ -13,8 +13,6 @@ import CoreData
 
 class RealEstatePropertyViewController: UIViewController {
     
-    
-    
     var dataController:DataController!
     var category:Category!
     var fetchedResultsController:NSFetchedResultsController<RealEstateProperty>!
@@ -23,16 +21,12 @@ class RealEstatePropertyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupTableViewProperties()
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupfetchedResultsController()
-        
     }
 
 }
@@ -45,10 +39,6 @@ extension RealEstatePropertyViewController: AddAddressControllerDelegate {
         saveRealEstate(address: item.address, coordinate: item.coordinate)
         navigationController?.popViewController(animated: true)
     }
-    
-    
-    
-    
     
 }
 
@@ -90,8 +80,15 @@ extension RealEstatePropertyViewController: UITableViewDataSource, UITableViewDe
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    
-    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (rowAction, indexPath) in
+            
+            self.deleteRealEstate(at: indexPath)
+        }
+        deleteAction.backgroundColor = UIColor.darkgreen
+        return [deleteAction]
+    }
 }
 
 // MARK:- TableView properties like cellsize, datasource, delegate, backgroundColor, etc
@@ -113,6 +110,29 @@ extension RealEstatePropertyViewController {
 // MARK:- CoreData functionality
 extension RealEstatePropertyViewController: NSFetchedResultsControllerDelegate {
     
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .fade)
+            break
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .fade)
+            break
+        case .update:
+            tableView.reloadRows(at: [indexPath!], with: .fade)
+        case .move:
+            tableView.moveRow(at: indexPath!, to: newIndexPath!)
+        }
+    }
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
+    
     private func saveRealEstate(address:String?, coordinate:CLLocationCoordinate2D?) {
         let realEstate = RealEstateProperty(context: dataController.viewContext)
         realEstate.address = address
@@ -133,7 +153,7 @@ extension RealEstatePropertyViewController: NSFetchedResultsControllerDelegate {
         let fetchRequest:NSFetchRequest<RealEstateProperty> = RealEstateProperty.fetchRequest()
         let predicate = NSPredicate(format: "category == %@", category)
         fetchRequest.predicate = predicate
-        let sortDescriptor = [NSSortDescriptor(key: "address", ascending: false)]
+        let sortDescriptor = [NSSortDescriptor(key: "creationDate", ascending: false)]
         fetchRequest.sortDescriptors = sortDescriptor
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -145,6 +165,20 @@ extension RealEstatePropertyViewController: NSFetchedResultsControllerDelegate {
             fatalError("The fetch could not be performed: \(error.localizedDescription)")
         }
     }
+    
+    
+    private func deleteRealEstate(at indexPath:IndexPath) {
+        let realEstate = fetchedResultsController.object(at: indexPath)
+        dataController.viewContext.delete(realEstate)
+        do {
+            try dataController.viewContext.save()
+            print("Successful save.")
+        } catch {
+            print("There was an error:\(error.localizedDescription)")
+        }
+    }
+    
+
 }
 
 
