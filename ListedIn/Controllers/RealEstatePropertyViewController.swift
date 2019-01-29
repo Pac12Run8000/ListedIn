@@ -35,6 +35,12 @@ class RealEstatePropertyViewController: UIViewController {
 // MARK:- AddAddressControllerDelegate functionality
 extension RealEstatePropertyViewController: AddAddressControllerDelegate {
     
+    func AddAddressController(_ controller: AddAddressController, didFinishEditing item: RealEstateProperty?) {
+        updateRealEstate(realEstate:item!)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    
     func AddAddressController(_ controller: AddAddressController, didFinishAdding item: (address: String?, coordinate: CLLocationCoordinate2D?)) {
         saveRealEstate(address: item.address, coordinate: item.coordinate)
         navigationController?.popViewController(animated: true)
@@ -51,6 +57,12 @@ extension RealEstatePropertyViewController {
         if segue.identifier == "addAddresSegue" {
             let control = segue.destination as! AddAddressController
             control.addressDelegate = self 
+        } else if segue.identifier == "editAddresSegue" {
+            let control = segue.destination as! AddAddressController
+            control.addressDelegate = self
+            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
+                control.realEstatePropertyToEdit = fetchedResultsController.object(at: indexPath)
+            }
         }
     }
     
@@ -131,6 +143,14 @@ extension RealEstatePropertyViewController: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
+    }
+    
+    private func updateRealEstate(realEstate:RealEstateProperty) {
+        do {
+            try dataController.viewContext.save()
+        } catch {
+            fatalError("CoreData failed to save.")
+        }
     }
     
     private func saveRealEstate(address:String?, coordinate:CLLocationCoordinate2D?) {

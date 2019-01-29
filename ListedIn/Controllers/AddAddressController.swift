@@ -12,6 +12,10 @@ import MapKit
 
 protocol AddAddressControllerDelegate:class {
     func AddAddressController(_ controller:AddAddressController, didFinishAdding item:(address:String?, coordinate:CLLocationCoordinate2D?))
+    
+    func AddAddressController(_ controller:AddAddressController, didFinishEditing item:RealEstateProperty?)
+    
+//    func memeGeneratorViewController(_ controller:MemeGeneratorViewController, didFinishEditing item:MemeObj)
 }
 
 class AddAddressController: UIViewController {
@@ -19,6 +23,7 @@ class AddAddressController: UIViewController {
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     var mainContainer: UIView!
     var viewBackgroundLoading: UIView!
+    var realEstatePropertyToEdit:RealEstateProperty!
     
     
     @IBOutlet weak var addressTextFieldOutlet: UITextField!
@@ -47,6 +52,10 @@ class AddAddressController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if let realEstatePropertyToEdit = realEstatePropertyToEdit {
+            addressTextFieldOutlet.text = realEstatePropertyToEdit.address
+        }
+        
         
     }
     
@@ -68,7 +77,16 @@ extension AddAddressController: UITextFieldDelegate {
             if (success!) {
                 self.errorLabelOutlet.isHidden = true
                 self.errorLabelOutlet.text = ""
-                self.addressDelegate?.AddAddressController(self, didFinishAdding: (address: textFieldText, coordinate: coord))
+                if let realEstatePropertyToEdit = self.realEstatePropertyToEdit {
+                    print("Edit address in CoreData")
+                    realEstatePropertyToEdit.address = textFieldText
+                    realEstatePropertyToEdit.latitude = (coord?.latitude)!
+                    realEstatePropertyToEdit.longitude = (coord?.longitude)!
+                    self.addressDelegate?.AddAddressController(self, didFinishEditing: realEstatePropertyToEdit)
+                } else {
+                    print("Adding address to CoreData")
+                    self.addressDelegate?.AddAddressController(self, didFinishAdding: (address: textFieldText, coordinate: coord))
+                }
                 self.stopActivityIndicator()
             } else {
                 self.errorLabelOutlet.isHidden = false
