@@ -79,10 +79,8 @@ extension AddAddressController: UITextFieldDelegate {
                 self.errorLabelOutlet.text = ""
                 if let realEstatePropertyToEdit = self.realEstatePropertyToEdit {
                     print("Edit address in CoreData")
-                    realEstatePropertyToEdit.address = textFieldText
-                    realEstatePropertyToEdit.latitude = (coord?.latitude)!
-                    realEstatePropertyToEdit.longitude = (coord?.longitude)!
-                    self.addressDelegate?.AddAddressController(self, didFinishEditing: realEstatePropertyToEdit)
+                    let updatedRealEstate = self.updateRealEstateProperties(realEstateProperty: realEstatePropertyToEdit, address: textFieldText, coord: coord)
+                    self.addressDelegate?.AddAddressController(self, didFinishEditing: updatedRealEstate)
                 } else {
                     print("Adding address to CoreData")
                     self.addressDelegate?.AddAddressController(self, didFinishAdding: (address: textFieldText, coordinate: coord))
@@ -97,9 +95,7 @@ extension AddAddressController: UITextFieldDelegate {
             }
         }
         return true
-        
     }
-    
 }
 
 
@@ -205,6 +201,23 @@ extension AddAddressController {
             completion(true,coordinate,nil)
         }
         
+    }
+    
+}
+
+
+// MARK:- Update functionality for the RealEstateProperty object
+extension AddAddressController {
+    
+    private func updateRealEstateProperties(realEstateProperty:RealEstateProperty,address:String?, coord:CLLocationCoordinate2D?) -> RealEstateProperty? {
+        guard let latitude = coord?.latitude, let longitude = coord?.longitude else {
+            print("There was the coordinate data.")
+            return realEstateProperty
+        }
+        realEstateProperty.address = address
+        realEstateProperty.latitude = latitude
+        realEstateProperty.longitude = longitude
+        return realEstateProperty
     }
     
 }
