@@ -27,6 +27,9 @@ class AddAddressController: UIViewController {
     @IBOutlet weak var labelHeightOutlet: NSLayoutConstraint!
     @IBOutlet weak var addressTextFieldOutlet: UITextField!
     @IBOutlet weak var errorLabelOutlet: UILabel!
+    @IBOutlet weak var noteButton: UIButton!
+    @IBOutlet weak var imagesButtonOutlet: UIButton!
+    @IBOutlet weak var mapButtonOutlet: UIButton!
     
     weak var addressDelegate:AddAddressControllerDelegate?
     
@@ -34,10 +37,27 @@ class AddAddressController: UIViewController {
         super.viewDidLoad()
         
         setupActivityIndicatorView()
+        setupErrorLabelAttributes()
+        
+        noteButton.layer.masksToBounds = true
+        noteButton.layer.cornerRadius = 5
+        noteButton.backgroundColor = UIColor.brightBlue
+        noteButton.setTitleColor(UIColor.brightGreen_1, for: .normal)
+        noteButton.setTitle("Add Note", for: .normal)
+        
+        imagesButtonOutlet.layer.masksToBounds = true
+        imagesButtonOutlet.layer.cornerRadius = 5
+        imagesButtonOutlet.backgroundColor = .brightBlue
+        imagesButtonOutlet.setTitleColor(.brightGreen_1, for: .normal)
+        imagesButtonOutlet.setTitle("Add Images", for: .normal)
+        
+        mapButtonOutlet.layer.masksToBounds = true
+        mapButtonOutlet.layer.cornerRadius = 5
+        mapButtonOutlet.backgroundColor = UIColor.brightBlue
+        mapButtonOutlet.setTitleColor(UIColor.brightGreen_1, for: .normal)
+        mapButtonOutlet.setTitle("Map", for: .normal)
        
-        labelHeightOutlet.constant = 0
-        errorLabelOutlet.layer.masksToBounds = true
-        errorLabelOutlet.layer.cornerRadius = 7
+        
         
         
         addressTextFieldOutlet.delegate = self
@@ -65,7 +85,7 @@ extension AddAddressController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let textFieldText = textField.text, !textFieldText.isEmpty else {
             
-            animateContstraintForErrorMessage(input: 70)
+            animateContstraintForErrorMessage(input: 60)
             
             errorLabelOutlet.text = "Please enter an address."
             return false
@@ -87,7 +107,7 @@ extension AddAddressController: UITextFieldDelegate {
                 self.stopActivityIndicator()
             } else {
                 
-                self.animateContstraintForErrorMessage(input: 70)
+                self.animateContstraintForErrorMessage(input: 60)
                 if let errDesc = error?.localizedDescription {
                     self.errorLabelOutlet.text = "\(String(describing: errDesc))"
                 }
@@ -158,6 +178,16 @@ extension AddAddressController {
         }
         UIApplication.shared.endIgnoringInteractionEvents()
     }
+}
+// MARK:- Setup Button and UIAttributes
+extension AddAddressController {
+    
+    private func setupErrorLabelAttributes() {
+        labelHeightOutlet.constant = 0
+        errorLabelOutlet.layer.masksToBounds = true
+        errorLabelOutlet.layer.cornerRadius = 7
+    }
+    
 }
 
 // MARK:- This is the geolocation functionality
