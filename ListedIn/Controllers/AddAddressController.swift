@@ -15,7 +15,6 @@ protocol AddAddressControllerDelegate:class {
     
     func AddAddressController(_ controller:AddAddressController, didFinishEditing item:RealEstateProperty?)
     
-//    func memeGeneratorViewController(_ controller:MemeGeneratorViewController, didFinishEditing item:MemeObj)
 }
 
 class AddAddressController: UIViewController {
@@ -25,7 +24,7 @@ class AddAddressController: UIViewController {
     var viewBackgroundLoading: UIView!
     var realEstatePropertyToEdit:RealEstateProperty!
     
-    
+    @IBOutlet weak var labelHeightOutlet: NSLayoutConstraint!
     @IBOutlet weak var addressTextFieldOutlet: UITextField!
     @IBOutlet weak var errorLabelOutlet: UILabel!
     
@@ -36,7 +35,7 @@ class AddAddressController: UIViewController {
         
         setupActivityIndicatorView()
        
-        errorLabelOutlet.isHidden = true
+        labelHeightOutlet.constant = 0
         errorLabelOutlet.layer.masksToBounds = true
         errorLabelOutlet.layer.cornerRadius = 7
         
@@ -55,27 +54,27 @@ class AddAddressController: UIViewController {
         if let realEstatePropertyToEdit = realEstatePropertyToEdit {
             addressTextFieldOutlet.text = realEstatePropertyToEdit.address
         }
-        
-        
     }
     
 
 }
-
 
 // MARK:- Textfield delegate functionality
 extension AddAddressController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let textFieldText = textField.text, !textFieldText.isEmpty else {
-            errorLabelOutlet.isHidden = false
+            
+            animateContstraintForErrorMessage(input: 70)
+            
             errorLabelOutlet.text = "Please enter an address."
             return false
         }
         startActivityIndicator()
         IsValidAddressConvertedFromCoordinates(address: textFieldText) { (success, coord, error) in
             if (success!) {
-                self.errorLabelOutlet.isHidden = true
+                
+                self.animateContstraintForErrorMessage(input: 0)
                 self.errorLabelOutlet.text = ""
                 if let realEstatePropertyToEdit = self.realEstatePropertyToEdit {
                     print("Edit address in CoreData")
@@ -87,7 +86,8 @@ extension AddAddressController: UITextFieldDelegate {
                 }
                 self.stopActivityIndicator()
             } else {
-                self.errorLabelOutlet.isHidden = false
+                
+                self.animateContstraintForErrorMessage(input: 70)
                 if let errDesc = error?.localizedDescription {
                     self.errorLabelOutlet.text = "\(String(describing: errDesc))"
                 }
@@ -98,6 +98,17 @@ extension AddAddressController: UITextFieldDelegate {
     }
 }
 
+// MARK:- This is where the error message functionality is located
+extension AddAddressController {
+    
+    private func animateContstraintForErrorMessage(input:CGFloat) {
+        self.labelHeightOutlet.constant = input
+        UIView.animate(withDuration: 0.4) {
+            self.view.layoutIfNeeded()
+        }
+        
+    }
+}
 
 // MARK:- ActivityIndicatorView functionality
 extension AddAddressController {
