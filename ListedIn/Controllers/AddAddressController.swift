@@ -39,23 +39,12 @@ class AddAddressController: UIViewController {
         setupActivityIndicatorView()
         setupErrorLabelAttributes()
         
-        noteButton.layer.masksToBounds = true
-        noteButton.layer.cornerRadius = 5
-        noteButton.backgroundColor = UIColor.brightBlue
-        noteButton.setTitleColor(UIColor.brightGreen_1, for: .normal)
-        noteButton.setTitle("Add Note", for: .normal)
+        setupNotebutton()
+        setupImagesButton()
+        setupMapButton()
         
-        imagesButtonOutlet.layer.masksToBounds = true
-        imagesButtonOutlet.layer.cornerRadius = 5
-        imagesButtonOutlet.backgroundColor = .brightBlue
-        imagesButtonOutlet.setTitleColor(.brightGreen_1, for: .normal)
-        imagesButtonOutlet.setTitle("Add Images", for: .normal)
         
-        mapButtonOutlet.layer.masksToBounds = true
-        mapButtonOutlet.layer.cornerRadius = 5
-        mapButtonOutlet.backgroundColor = UIColor.brightBlue
-        mapButtonOutlet.setTitleColor(UIColor.brightGreen_1, for: .normal)
-        mapButtonOutlet.setTitle("Map", for: .normal)
+        
        
         
         
@@ -182,10 +171,34 @@ extension AddAddressController {
 // MARK:- Setup Button and UIAttributes
 extension AddAddressController {
     
+    private func setupMapButton() {
+        mapButtonOutlet.layer.masksToBounds = true
+        mapButtonOutlet.layer.cornerRadius = 5
+        mapButtonOutlet.backgroundColor = UIColor.brightBlue
+        mapButtonOutlet.setTitleColor(UIColor.brightGreen_1, for: .normal)
+        mapButtonOutlet.setTitle("Map", for: .normal)
+    }
+    
+    private func setupImagesButton() {
+        imagesButtonOutlet.layer.masksToBounds = true
+        imagesButtonOutlet.layer.cornerRadius = 5
+        imagesButtonOutlet.backgroundColor = .brightBlue
+        imagesButtonOutlet.setTitleColor(.brightGreen_1, for: .normal)
+        imagesButtonOutlet.setTitle("Add Images", for: .normal)
+    }
+    
     private func setupErrorLabelAttributes() {
         labelHeightOutlet.constant = 0
         errorLabelOutlet.layer.masksToBounds = true
         errorLabelOutlet.layer.cornerRadius = 7
+    }
+    
+    private func setupNotebutton() {
+        noteButton.layer.masksToBounds = true
+        noteButton.layer.cornerRadius = 5
+        noteButton.backgroundColor = UIColor.brightBlue
+        noteButton.setTitleColor(UIColor.brightGreen_1, for: .normal)
+        noteButton.setTitle("Add Note", for: .normal)
     }
     
 }
