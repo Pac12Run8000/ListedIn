@@ -68,11 +68,31 @@ class AddAddressController: UIViewController {
     }
     
     @IBAction func mapButtonAction(_ sender: Any) {
+        
         guard let property = realEstatePropertyToEdit else { return }
         
+        mapToLocation(latitude: property.latitude, longitude: property.longitude, myAddress: property.address!)
         
     }
     
+}
+// MARK:- Mapping functionality
+extension AddAddressController {
+    
+    
+    private func mapToLocation(latitude:Double, longitude:Double, myAddress:String) {
+        let regionDistance:CLLocationDistance = 1000
+        let lat:CLLocationDegrees = latitude
+        let lng:CLLocationDegrees = longitude
+        
+        let coordinates:CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, lng)
+        let regionSpan = MKCoordinateRegion.init(center: coordinates, latitudinalMeters: regionDistance, longitudinalMeters: regionDistance)
+        let options = [MKLaunchOptionsMapCenterKey:NSValue(mkCoordinate: regionSpan.center), MKLaunchOptionsMapSpanKey:NSValue(mkCoordinateSpan: regionSpan.span)]
+        let placemark = MKPlacemark(coordinate: coordinates)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = myAddress
+        mapItem.openInMaps(launchOptions: options)
+    }
 }
 
 // MARK:- Textfield delegate functionality
