@@ -29,7 +29,12 @@ class AddAddressController: UIViewController {
     @IBOutlet weak var addressTextFieldOutlet: UITextField!
     @IBOutlet weak var errorLabelOutlet: UILabel!
     
-    @IBOutlet weak var mapButtonOutlet: UIButton!
+    @IBOutlet weak var mapButtonOutlet: UIBarButtonItem!
+    @IBOutlet weak var addImageButtonOutlet: UIBarButtonItem!
+   
+    @IBOutlet weak var notesTextView: UITextView!
+    
+    
     
     weak var addressDelegate:AddAddressControllerDelegate?
     
@@ -39,18 +44,12 @@ class AddAddressController: UIViewController {
         setupActivityIndicatorView()
         setupErrorLabelAttributes()
         
+        notesTextView.layer.cornerRadius = 5
+        
         
         addressTextFieldOutlet.delegate = self
         addressTextFieldOutlet.becomeFirstResponder()
         view.backgroundColor = UIColor.greenCyan
-        
-        
-        mapButtonOutlet.layer.masksToBounds = true
-        mapButtonOutlet.layer.cornerRadius = 5
-        mapButtonOutlet.backgroundColor = UIColor.darkgreen
-        mapButtonOutlet.titleColor(for: .normal)
-        mapButtonOutlet.tintColor = UIColor.brightGreen_1
-        mapButtonOutlet.setTitle("map location", for: .normal)
         
     }
     
@@ -63,17 +62,20 @@ class AddAddressController: UIViewController {
         } else {
             editState = false
         }
-        
-        setEditStateVisibility()
+        setEnabledOnMapButton(editState: editState)
     }
     
     @IBAction func mapButtonAction(_ sender: Any) {
-        
-        guard let property = realEstatePropertyToEdit else { return }
-        
+        guard let property = realEstatePropertyToEdit else {
+            print("There was an error with the RealEstateProperty")
+            return
+        }
         mapToLocation(latitude: property.latitude, longitude: property.longitude, myAddress: property.address!)
-        
     }
+    
+    
+    
+    
     
 }
 // MARK:- Mapping functionality
@@ -197,11 +199,10 @@ extension AddAddressController {
 }
 // MARK:- Setup Button and UIAttributes
 extension AddAddressController {
-    
-    private func setEditStateVisibility() {
-        self.mapButtonOutlet.isHidden = editState == true ? false : true
+    private func setEnabledOnMapButton(editState:Bool) {
+        mapButtonOutlet.isEnabled = editState == true ? true : false
     }
-    
+
     private func setupErrorLabelAttributes() {
         labelHeightOutlet.constant = 0
         errorLabelOutlet.layer.masksToBounds = true
