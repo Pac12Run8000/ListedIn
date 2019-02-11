@@ -19,6 +19,8 @@
 		091FC07F21F30F24004FAA7A /* RealEstatePropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091FC07E21F30F24004FAA7A /* RealEstatePropertyViewController.swift */; };
 		091FC08321F3A29C004FAA7A /* AddAddressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091FC08221F3A29C004FAA7A /* AddAddressController.swift */; };
 		091FC08521F5112C004FAA7A /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091FC08421F5112C004FAA7A /* Address.swift */; };
+		09C006FD22122655006FFEE7 /* ImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C006FC22122655006FFEE7 /* ImagesViewController.swift */; };
+		09C006FF221226DD006FFEE7 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C006FE221226DD006FFEE7 /* NotesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		091FC07E21F30F24004FAA7A /* RealEstatePropertyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealEstatePropertyViewController.swift; sourceTree = "<group>"; };
 		091FC08221F3A29C004FAA7A /* AddAddressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressController.swift; sourceTree = "<group>"; };
 		091FC08421F5112C004FAA7A /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		09C006FC22122655006FFEE7 /* ImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesViewController.swift; sourceTree = "<group>"; };
+		09C006FE221226DD006FFEE7 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,8 @@
 				091FC06221EDBC56004FAA7A /* CategoryViewController.swift */,
 				091FC07E21F30F24004FAA7A /* RealEstatePropertyViewController.swift */,
 				091FC08221F3A29C004FAA7A /* AddAddressController.swift */,
+				09C006FC22122655006FFEE7 /* ImagesViewController.swift */,
+				09C006FE221226DD006FFEE7 /* NotesViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -180,7 +186,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09C006FD22122655006FFEE7 /* ImagesViewController.swift in Sources */,
 				091FC08521F5112C004FAA7A /* Address.swift in Sources */,
+				09C006FF221226DD006FFEE7 /* NotesViewController.swift in Sources */,
 				091FC08321F3A29C004FAA7A /* AddAddressController.swift in Sources */,
 				091FC06321EDBC56004FAA7A /* CategoryViewController.swift in Sources */,
 				091FC07C21F0293F004FAA7A /* DataController.swift in Sources */,
