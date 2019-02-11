@@ -162,45 +162,28 @@
                                 <color key="textColor" red="1" green="0.14639261740000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3oS-E1-duj">
-                                <rect key="frame" x="5" y="154.5" width="365" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="okg-Si-VJ0">
+                                <rect key="frame" x="5" y="154.5" width="365" height="55"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="NyA-yn-AyW"/>
+                                    <constraint firstAttribute="height" constant="55" id="zaE-p5-yxU"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lWw-8M-f6R">
-                                <rect key="frame" x="5" y="214.5" width="365" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="lfo-kc-fqb"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FKw-sr-nji">
-                                <rect key="frame" x="5" y="274.5" width="365" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="pVm-mf-iYK"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="mapButtonAction:" destination="GaL-0j-12I" eventType="touchUpInside" id="cH0-te-dsn"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="3oS-E1-duj" firstAttribute="leading" secondItem="UBE-xE-9Ip" secondAttribute="leading" constant="5" id="6jm-7P-eIN"/>
-                            <constraint firstItem="UBE-xE-9Ip" firstAttribute="trailing" secondItem="3oS-E1-duj" secondAttribute="trailing" constant="5" id="8ad-cg-it4"/>
+                            <constraint firstItem="UBE-xE-9Ip" firstAttribute="trailing" secondItem="okg-Si-VJ0" secondAttribute="trailing" constant="5" id="But-53-9iq"/>
                             <constraint firstItem="UBE-xE-9Ip" firstAttribute="trailing" secondItem="jUD-jh-UUB" secondAttribute="trailing" constant="5" id="CKe-Ng-loN"/>
                             <constraint firstItem="nvo-zP-uLl" firstAttribute="leading" secondItem="UBE-xE-9Ip" secondAttribute="leading" constant="5" id="KXF-zU-LUe"/>
                             <constraint firstItem="jUD-jh-UUB" firstAttribute="top" secondItem="nvo-zP-uLl" secondAttribute="bottom" constant="5" id="Lb9-1i-o9Y"/>
-                            <constraint firstItem="lWw-8M-f6R" firstAttribute="leading" secondItem="UBE-xE-9Ip" secondAttribute="leading" constant="5" id="OMA-5P-G5C"/>
                             <constraint firstItem="UBE-xE-9Ip" firstAttribute="trailing" secondItem="nvo-zP-uLl" secondAttribute="trailing" constant="5" id="PnA-hh-vN8"/>
-                            <constraint firstItem="UBE-xE-9Ip" firstAttribute="trailing" secondItem="lWw-8M-f6R" secondAttribute="trailing" constant="5" id="QQP-Th-XRG"/>
-                            <constraint firstItem="lWw-8M-f6R" firstAttribute="top" secondItem="3oS-E1-duj" secondAttribute="bottom" constant="10" id="QTx-ny-eux"/>
-                            <constraint firstItem="3oS-E1-duj" firstAttribute="top" secondItem="jUD-jh-UUB" secondAttribute="bottom" constant="5" id="a7q-Ml-KTR"/>
-                            <constraint firstItem="FKw-sr-nji" firstAttribute="leading" secondItem="UBE-xE-9Ip" secondAttribute="leading" constant="5" id="geh-Xc-V4Z"/>
-                            <constraint firstItem="UBE-xE-9Ip" firstAttribute="trailing" secondItem="FKw-sr-nji" secondAttribute="trailing" constant="5" id="pO2-ZP-N9d"/>
-                            <constraint firstItem="FKw-sr-nji" firstAttribute="top" secondItem="lWw-8M-f6R" secondAttribute="bottom" constant="10" id="udE-cJ-CJi"/>
                             <constraint firstItem="nvo-zP-uLl" firstAttribute="top" secondItem="UBE-xE-9Ip" secondAttribute="top" constant="5" id="usa-19-Vhp"/>
                             <constraint firstItem="jUD-jh-UUB" firstAttribute="leading" secondItem="UBE-xE-9Ip" secondAttribute="leading" constant="5" id="vhN-zc-L44"/>
+                            <constraint firstItem="okg-Si-VJ0" firstAttribute="leading" secondItem="UBE-xE-9Ip" secondAttribute="leading" constant="5" id="waA-Tj-cdb"/>
+                            <constraint firstItem="okg-Si-VJ0" firstAttribute="top" secondItem="jUD-jh-UUB" secondAttribute="bottom" constant="5" id="xfg-Ur-vbw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UBE-xE-9Ip"/>
                     </view>
@@ -210,10 +193,8 @@
                     <connections>
                         <outlet property="addressTextFieldOutlet" destination="nvo-zP-uLl" id="ncm-eu-LTj"/>
                         <outlet property="errorLabelOutlet" destination="jUD-jh-UUB" id="Aa1-N7-atJ"/>
-                        <outlet property="imagesButtonOutlet" destination="lWw-8M-f6R" id="1km-V4-Uvo"/>
                         <outlet property="labelHeightOutlet" destination="LGg-IK-BjR" id="cJL-cP-5zW"/>
-                        <outlet property="mapButtonOutlet" destination="FKw-sr-nji" id="Wps-yg-X6S"/>
-                        <outlet property="noteButton" destination="3oS-E1-duj" id="Nc4-kl-ftv"/>
+                        <outlet property="mapButtonOutlet" destination="okg-Si-VJ0" id="IRN-qt-Z2z"/>
                         <outlet property="searchDisplayController" destination="Z4D-Du-vZB" id="WWz-JZ-kdd"/>
                     </connections>
                 </viewController>
