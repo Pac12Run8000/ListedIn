@@ -21,6 +21,7 @@
 		091FC08521F5112C004FAA7A /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091FC08421F5112C004FAA7A /* Address.swift */; };
 		09C006FD22122655006FFEE7 /* ImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C006FC22122655006FFEE7 /* ImagesViewController.swift */; };
 		09C006FF221226DD006FFEE7 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C006FE221226DD006FFEE7 /* NotesViewController.swift */; };
+		09C0070222134DD1006FFEE7 /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C0070122134DD1006FFEE7 /* CustomCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		091FC08421F5112C004FAA7A /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		09C006FC22122655006FFEE7 /* ImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesViewController.swift; sourceTree = "<group>"; };
 		09C006FE221226DD006FFEE7 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
+		09C0070122134DD1006FFEE7 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 		091FC05F21EDBC56004FAA7A /* ListedIn */ = {
 			isa = PBXGroup;
 			children = (
+				09C0070022134DA3006FFEE7 /* Custom Controllers */,
 				091FC07D21F30DC2004FAA7A /* Controllers */,
 				091FC07521EEA067004FAA7A /* Model */,
 				091FC07221EDBD6B004FAA7A /* Extensions */,
@@ -113,6 +116,14 @@
 				09C006FE221226DD006FFEE7 /* NotesViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		09C0070022134DA3006FFEE7 /* Custom Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				09C0070122134DD1006FFEE7 /* CustomCollectionViewCell.swift */,
+			);
+			path = "Custom Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +204,7 @@
 				091FC06321EDBC56004FAA7A /* CategoryViewController.swift in Sources */,
 				091FC07C21F0293F004FAA7A /* DataController.swift in Sources */,
 				091FC07421EDBD93004FAA7A /* Extensions.swift in Sources */,
+				09C0070222134DD1006FFEE7 /* CustomCollectionViewCell.swift in Sources */,
 				091FC07A21EFE0CC004FAA7A /* Model.xcdatamodeld in Sources */,
 				091FC07F21F30F24004FAA7A /* RealEstatePropertyViewController.swift in Sources */,
 				091FC06121EDBC56004FAA7A /* AppDelegate.swift in Sources */,

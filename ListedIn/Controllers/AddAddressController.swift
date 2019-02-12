@@ -19,6 +19,8 @@ protocol AddAddressControllerDelegate:class {
 
 class AddAddressController: UIViewController {
     
+    var tempArray = ["MidTown Manhattan", "Broadway New York", "Beverly Hills CA", "Palo Alto Research Center", "Los Angeles CA", "Oakland CA", "MidTown Manhattan", "Broadway New York", "Beverly Hills CA", "Palo Alto Research Center", "Los Angeles CA", "Oakland CA"]
+    
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     var mainContainer: UIView!
     var viewBackgroundLoading: UIView!
@@ -35,6 +37,7 @@ class AddAddressController: UIViewController {
    
     @IBOutlet weak var notesTextView: UITextView!
     
+    @IBOutlet weak var collectionView: UICollectionView!
     
     
     
@@ -45,6 +48,7 @@ class AddAddressController: UIViewController {
         
         setupActivityIndicatorView()
         setupErrorLabelAttributes()
+        setupCollectionViewDelegateAndDatasource()
         
         notesTextView.layer.cornerRadius = 5
         
@@ -224,6 +228,8 @@ extension AddAddressController {
         UIApplication.shared.endIgnoringInteractionEvents()
     }
 }
+
+
 // MARK:- Make elements on cotroller visible or not, enabled or not
 extension AddAddressController {
     
@@ -322,7 +328,27 @@ extension AddAddressController {
     
 }
 
-extension AddAddressController {
+extension AddAddressController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    private func setupCollectionViewDelegateAndDatasource() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return tempArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CustomCollectionViewCell
+        
+        cell?.addressLabelOutlet.text = tempArray[indexPath.row]
+        cell?.backgroundColor = UIColor.brightGreen_2
+        cell?.addressLabelOutlet.backgroundColor = UIColor.darkGray
+        
+        return cell!
+    }
+    
     
     
 }
