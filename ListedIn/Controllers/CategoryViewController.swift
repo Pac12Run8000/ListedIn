@@ -34,7 +34,7 @@ class CategoryViewController: UIViewController {
         
         navigationController?.navigationBar.barTintColor = UIColor.darkgreen
         navigationController?.navigationBar.tintColor = UIColor.brightGreen_2
-        
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.brightGreen_2]
     }
     
     @IBAction func addCategoryButtonAction(_ sender: Any) {

@@ -46,9 +46,11 @@ class AddAddressController: UIViewController {
         
         notesTextView.layer.cornerRadius = 5
         
+        makeAddressTextFieldFirstResponder()
+        setDismissKeyboard()
         
         addressTextFieldOutlet.delegate = self
-        addressTextFieldOutlet.becomeFirstResponder()
+        
         view.backgroundColor = UIColor.greenCyan
         
     }
@@ -97,8 +99,29 @@ extension AddAddressController {
     }
 }
 
+// MARK:- Keyboard dismiss and present functionality
+extension AddAddressController {
+    
+    private func setDismissKeyboard() {
+        var tapGesture = UITapGestureRecognizer(target: self, action: #selector(AddAddressController.dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    private func makeAddressTextFieldFirstResponder() {
+        addressTextFieldOutlet.becomeFirstResponder()
+    }
+    
+    @objc private func dismissKeyboard(tap:UITapGestureRecognizer) {
+//        addressTextFieldOutlet.resignFirstResponder()
+        view.endEditing(true)
+    }
+    
+}
+
 // MARK:- Textfield delegate functionality
 extension AddAddressController: UITextFieldDelegate {
+    
+    
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let textFieldText = textField.text, !textFieldText.isEmpty else {

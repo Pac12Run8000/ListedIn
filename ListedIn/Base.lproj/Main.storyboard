@@ -194,12 +194,12 @@
                                     <action selector="mapButtonAction:" destination="GaL-0j-12I" id="Ny0-t7-ivf"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="images" id="hU5-N3-ubq">
+                            <barButtonItem systemItem="camera" id="hU5-N3-ubq">
                                 <connections>
                                     <segue destination="DlR-ae-5Fg" kind="show" id="c1V-p8-rRz"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="notes" id="gLY-e8-8gA">
+                            <barButtonItem systemItem="compose" id="gLY-e8-8gA">
                                 <connections>
                                     <segue destination="QPR-aw-lh8" kind="show" id="HCM-JJ-b58"/>
                                 </connections>
@@ -229,22 +229,42 @@
             </objects>
             <point key="canvasLocation" x="3308" y="124.58770614692655"/>
         </scene>
-        <!--Notes View Controller-->
+        <!--Notes-->
         <scene sceneID="JqZ-FM-CZc">
             <objects>
                 <viewController id="QPR-aw-lh8" customClass="NotesViewController" customModule="ListedIn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ejm-HH-Qgw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="hs2-8x-uMw">
+                                <rect key="frame" x="5" y="69" width="365" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="h3X-7E-55r"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="uqK-U6-9sS" firstAttribute="trailing" secondItem="hs2-8x-uMw" secondAttribute="trailing" constant="5" id="NKg-Ie-4mi"/>
+                            <constraint firstItem="hs2-8x-uMw" firstAttribute="leading" secondItem="uqK-U6-9sS" secondAttribute="leading" constant="5" id="Ntu-gk-l9q"/>
+                            <constraint firstItem="hs2-8x-uMw" firstAttribute="top" secondItem="uqK-U6-9sS" secondAttribute="top" constant="5" id="jgm-GY-aOG"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="uqK-U6-9sS"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Notes" id="ufm-cf-VnV"/>
+                    <connections>
+                        <outlet property="textFieldOutlet" destination="hs2-8x-uMw" id="gVc-HP-rVB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oNX-Eg-Wlx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4750" y="539"/>
         </scene>
-        <!--Images View Controller-->
+        <!--Images-->
         <scene sceneID="G1S-db-osK">
             <objects>
                 <viewController id="DlR-ae-5Fg" customClass="ImagesViewController" customModule="ListedIn" customModuleProvider="target" sceneMemberID="viewController">
@@ -254,6 +274,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="KVs-fh-999"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Images" id="JaH-Uy-Ktb"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vZX-Jx-dUC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
