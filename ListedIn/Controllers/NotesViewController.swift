@@ -10,7 +10,7 @@ import UIKit
 
 class NotesViewController: UIViewController {
     
-    
+    var realEstateProperty:RealEstateProperty!
     
     @IBOutlet weak var textFieldOutlet: UITextField!
     
@@ -19,17 +19,31 @@ class NotesViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = UIColor.greenCyan
-        
-        textFieldOutlet.delegate = self
-        textFieldOutlet.becomeFirstResponder()
-        textFieldOutlet.placeholder = "add notes here ..."
+        setupNotesTextField()
         
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let address = realEstateProperty.address else {return}
+        print("property address:\(address)")
     }
     
 
     
 
+}
+
+// MARK:- Set up notes textField
+extension NotesViewController {
+    
+    private func setupNotesTextField() {
+        textFieldOutlet.delegate = self
+        textFieldOutlet.becomeFirstResponder()
+        textFieldOutlet.placeholder = "add notes here ..."
+    }
 }
 
 extension NotesViewController:UITextFieldDelegate {

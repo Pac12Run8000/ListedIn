@@ -213,6 +213,7 @@
                         <outlet property="errorLabelOutlet" destination="jUD-jh-UUB" id="Aa1-N7-atJ"/>
                         <outlet property="labelHeightOutlet" destination="LGg-IK-BjR" id="cJL-cP-5zW"/>
                         <outlet property="mapButtonOutlet" destination="euG-LT-sMv" id="omk-aK-Tsz"/>
+                        <outlet property="notesButtonOutlet" destination="gLY-e8-8gA" id="va5-Bo-Spg"/>
                         <outlet property="notesTextView" destination="msH-vc-Kug" id="VPt-Wr-csC"/>
                         <outlet property="searchDisplayController" destination="Z4D-Du-vZB" id="WWz-JZ-kdd"/>
                     </connections>

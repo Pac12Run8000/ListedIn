@@ -31,8 +31,10 @@ class AddAddressController: UIViewController {
     
     @IBOutlet weak var mapButtonOutlet: UIBarButtonItem!
     @IBOutlet weak var addImageButtonOutlet: UIBarButtonItem!
+    @IBOutlet weak var notesButtonOutlet: UIBarButtonItem!
    
     @IBOutlet weak var notesTextView: UITextView!
+    
     
     
     
@@ -64,7 +66,9 @@ class AddAddressController: UIViewController {
         } else {
             editState = false
         }
-        setEnabledOnMapButton(editState: editState)
+        setEnabledMapButton(editState: editState)
+        setupEnableImageButton(editState: editState)
+        setupEnableNoteButton(editState: editState)
     }
     
     @IBAction func mapButtonAction(_ sender: Any) {
@@ -220,9 +224,18 @@ extension AddAddressController {
         UIApplication.shared.endIgnoringInteractionEvents()
     }
 }
-// MARK:- Setup Button and UIAttributes
+// MARK:- Make elements on cotroller visible or not, enabled or not
 extension AddAddressController {
-    private func setEnabledOnMapButton(editState:Bool) {
+    
+    private func setupEnableNoteButton(editState:Bool) {
+        notesButtonOutlet.isEnabled = editState == true ? true : false
+    }
+    
+    private func setupEnableImageButton(editState:Bool) {
+        addImageButtonOutlet.isEnabled = editState == true ? true : false
+    }
+    
+    private func setEnabledMapButton(editState:Bool) {
         mapButtonOutlet.isEnabled = editState == true ? true : false
     }
 
@@ -306,6 +319,11 @@ extension AddAddressController {
         realEstateProperty.longitude = longitude
         return realEstateProperty
     }
+    
+}
+
+extension AddAddressController {
+    
     
 }
 
