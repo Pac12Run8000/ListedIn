@@ -316,6 +316,7 @@
                     <navigationItem key="navigationItem" title="Notes" id="ufm-cf-VnV"/>
                     <connections>
                         <outlet property="errorLabelOutlet" destination="aca-7a-exv" id="INO-Yo-IWp"/>
+                        <outlet property="labelHeightOutlet" destination="kLo-IL-bzc" id="zvo-I2-VrP"/>
                         <outlet property="textFieldOutlet" destination="hs2-8x-uMw" id="gVc-HP-rVB"/>
                     </connections>
                 </viewController>

@@ -199,7 +199,7 @@ extension AddAddressController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let textFieldText = textField.text, !textFieldText.isEmpty else {
             
-            animateContstraintForErrorMessage(input: 60)
+            animateContstraintForErrorMessage(input: 60, constraintToAnimate: labelHeightOutlet)
             
             errorLabelOutlet.text = "Please enter an address."
             return false
@@ -208,7 +208,7 @@ extension AddAddressController: UITextFieldDelegate {
         IsValidAddressConvertedFromCoordinates(address: textFieldText) { (success, coord, error) in
             if (success!) {
                 
-                self.animateContstraintForErrorMessage(input: 0)
+                self.animateContstraintForErrorMessage(input: 0, constraintToAnimate: self.labelHeightOutlet)
                 self.errorLabelOutlet.text = ""
                 if let realEstatePropertyToEdit = self.realEstatePropertyToEdit {
                     print("Edit address in CoreData")
@@ -221,7 +221,7 @@ extension AddAddressController: UITextFieldDelegate {
                 self.stopActivityIndicator()
             } else {
                 
-                self.animateContstraintForErrorMessage(input: 60)
+                self.animateContstraintForErrorMessage(input: 60, constraintToAnimate: self.labelHeightOutlet)
                 if let errDesc = error?.localizedDescription {
                     self.errorLabelOutlet.text = "\(String(describing: errDesc))"
                 }
@@ -235,8 +235,8 @@ extension AddAddressController: UITextFieldDelegate {
 // MARK:- This is where the error message functionality is located
 extension AddAddressController {
     
-    private func animateContstraintForErrorMessage(input:CGFloat) {
-        self.labelHeightOutlet.constant = input
+    private func animateContstraintForErrorMessage(input:CGFloat, constraintToAnimate: NSLayoutConstraint ) {
+        constraintToAnimate.constant = input
         UIView.animate(withDuration: 0.4) {
             self.view.layoutIfNeeded()
         }

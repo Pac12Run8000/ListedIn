@@ -13,8 +13,8 @@ class NotesViewController: UIViewController {
     var realEstateProperty:RealEstateProperty! = nil
     
     @IBOutlet weak var textFieldOutlet: UITextField!
-    
     @IBOutlet weak var errorLabelOutlet: UILabel!
+    @IBOutlet weak var labelHeightOutlet: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +22,7 @@ class NotesViewController: UIViewController {
         view.backgroundColor = UIColor.greenCyan
         setupNotesTextField()
         errorMsglayout()
+        labelHeightOutlet.constant = 0
         
         
     }
@@ -37,11 +38,23 @@ class NotesViewController: UIViewController {
 
 }
 
+// MARK:- Animate errorLabel
+extension NotesViewController {
+    
+    private func animateContstraintForErrorMessage(input:CGFloat, constraintToAnimate: NSLayoutConstraint ) {
+        constraintToAnimate.constant = input
+        UIView.animate(withDuration: 0.4) {
+            self.view.layoutIfNeeded()
+        }
+        
+    }
+}
+
 // MARK:- UI Layout
 extension NotesViewController {
     
     private func errorMsglayout() {
-        errorLabelOutlet.isHidden = true
+        labelHeightOutlet.constant = 0
         errorLabelOutlet.layer.cornerRadius = 5
         errorLabelOutlet.layer.masksToBounds = true
     }
@@ -62,21 +75,15 @@ extension NotesViewController {
 // MARK:- UITextFieldDelegate functionality
 extension NotesViewController:UITextFieldDelegate {
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if (textField.text == "" || (textField.text?.isEmpty)!) {
-            errorLabelOutlet.isHidden = true
-        } else {
-            errorLabelOutlet.isHidden = false
-        }
-    }
+
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if (textField.text?.isEmpty)! {
-            errorLabelOutlet.isHidden = false
-            errorLabelOutlet.text = "Your note is empty."
+            animateContstraintForErrorMessage(input: 60, constraintToAnimate: labelHeightOutlet)
+            errorLabelOutlet.text = "enter a note or press (Back)."
         } else {
-            errorLabelOutlet.isHidden = true
+            animateContstraintForErrorMessage(input: 0, constraintToAnimate: labelHeightOutlet)
             navigationController?.popViewController(animated: true)
         }
         return true
