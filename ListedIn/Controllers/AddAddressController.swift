@@ -71,13 +71,13 @@ class AddAddressController: UIViewController {
         
         editState = setEditState(realEstateProperty: realEstatePropertyToEdit)
         
-        
+        setVisibilityForNotesTextView(editState: editState)
+        setVisibilityForCollectionView(editState: editState)
         setAddressTextField(realEstatePropertyToEdit: realEstatePropertyToEdit)
         setEnabledMapButton(editState: editState)
         setupEnableImageButton(editState: editState)
         setupEnableNoteButton(editState: editState)
     }
-    
     
     
     @IBAction func mapButtonAction(_ sender: Any) {
@@ -88,8 +88,18 @@ class AddAddressController: UIViewController {
         mapToLocation(latitude: property.latitude, longitude: property.longitude, myAddress: property.address!)
     }
 }
+
+
 // MARK:- UI and Layout details
 extension AddAddressController {
+    
+    private func setVisibilityForCollectionView(editState:Bool) {
+        collectionView.isHidden = editState == true ? false : true
+    }
+    
+    private func setVisibilityForNotesTextView(editState:Bool) {
+        notesTextView.isHidden = editState == true ? false : true
+    }
     
     private func setEditState(realEstateProperty: RealEstateProperty?) -> Bool {
         return realEstateProperty == .none ? false : true
@@ -113,6 +123,32 @@ extension AddAddressController {
     private func setnotesTextViewCornerRadius() {
         notesTextView.layer.cornerRadius = 5
     }
+    
+}
+
+
+// MARK:- Make elements on cotroller visible or not, enabled or not
+extension AddAddressController {
+    
+    private func setupEnableNoteButton(editState:Bool) {
+        notesButtonOutlet.isEnabled = editState == true ? true : false
+    }
+    
+    private func setupEnableImageButton(editState:Bool) {
+        addImageButtonOutlet.isEnabled = editState == true ? true : false
+    }
+    
+    private func setEnabledMapButton(editState:Bool) {
+        mapButtonOutlet.isEnabled = editState == true ? true : false
+    }
+    
+    private func setupErrorLabelAttributes() {
+        labelHeightOutlet.constant = 0
+        errorLabelOutlet.layer.masksToBounds = true
+        errorLabelOutlet.layer.cornerRadius = 7
+    }
+    
+    
     
 }
 
@@ -259,30 +295,7 @@ extension AddAddressController {
 }
 
 
-// MARK:- Make elements on cotroller visible or not, enabled or not
-extension AddAddressController {
-    
-    private func setupEnableNoteButton(editState:Bool) {
-        notesButtonOutlet.isEnabled = editState == true ? true : false
-    }
-    
-    private func setupEnableImageButton(editState:Bool) {
-        addImageButtonOutlet.isEnabled = editState == true ? true : false
-    }
-    
-    private func setEnabledMapButton(editState:Bool) {
-        mapButtonOutlet.isEnabled = editState == true ? true : false
-    }
 
-    private func setupErrorLabelAttributes() {
-        labelHeightOutlet.constant = 0
-        errorLabelOutlet.layer.masksToBounds = true
-        errorLabelOutlet.layer.cornerRadius = 7
-    }
-    
-    
-    
-}
 
 // MARK:- This is the geolocation functionality
 extension AddAddressController {
