@@ -69,16 +69,16 @@ class AddAddressController: UIViewController {
         tempArray = ["MidTown Manhattan", "Broadway New York", "Beverly Hills CA", "Palo Alto Research Center", "Los Angeles CA", "Oakland CA", "MidTown Manhattan", "Broadway New York", "Beverly Hills CA", "Palo Alto Research Center", "Los Angeles CA", "Oakland CA"]
         collectionView.reloadData()
         
-        if let realEstatePropertyToEdit = realEstatePropertyToEdit {
-            addressTextFieldOutlet.text = realEstatePropertyToEdit.address
-            editState = true
-        } else {
-            editState = false
-        }
+        editState = setEditState(realEstateProperty: realEstatePropertyToEdit)
+        
+        
+        setAddressTextField(realEstatePropertyToEdit: realEstatePropertyToEdit)
         setEnabledMapButton(editState: editState)
         setupEnableImageButton(editState: editState)
         setupEnableNoteButton(editState: editState)
     }
+    
+    
     
     @IBAction func mapButtonAction(_ sender: Any) {
         guard let property = realEstatePropertyToEdit else {
@@ -90,6 +90,16 @@ class AddAddressController: UIViewController {
 }
 // MARK:- UI and Layout details
 extension AddAddressController {
+    
+    private func setEditState(realEstateProperty: RealEstateProperty?) -> Bool {
+        return realEstateProperty == .none ? false : true
+    }
+    
+    private func setAddressTextField(realEstatePropertyToEdit:RealEstateProperty?) {
+        if let realEstatePropertyToEdit = realEstatePropertyToEdit as? RealEstateProperty {
+            addressTextFieldOutlet.text = realEstatePropertyToEdit.address
+        }
+    }
     
     private func setCollectionViewAppearance() {
         collectionView.layer.cornerRadius = 5
