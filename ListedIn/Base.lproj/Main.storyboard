@@ -244,7 +244,7 @@
                             </barButtonItem>
                             <barButtonItem systemItem="compose" id="gLY-e8-8gA">
                                 <connections>
-                                    <segue destination="QPR-aw-lh8" kind="show" id="HCM-JJ-b58"/>
+                                    <segue destination="QPR-aw-lh8" kind="show" identifier="notesSegue" id="HCM-JJ-b58"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>

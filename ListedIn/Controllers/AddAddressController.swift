@@ -59,6 +59,8 @@ class AddAddressController: UIViewController {
         
         view.backgroundColor = UIColor.greenCyan
         
+        let itemSize = (UIScreen.main.bounds.width / 3) - 3
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -349,6 +351,21 @@ extension AddAddressController: UICollectionViewDataSource, UICollectionViewDele
         return cell!
     }
     
+    
+    
+}
+
+// MARK:- Prepare for segue functionality
+extension AddAddressController {
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "notesSegue") {
+            let controller = segue.destination as! NotesViewController
+            if let realEstateProperty = realEstatePropertyToEdit {
+                controller.realEstateProperty = realEstateProperty
+            }
+        }
+    }
     
     
 }
