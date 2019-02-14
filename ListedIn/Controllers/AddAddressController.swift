@@ -18,7 +18,7 @@ protocol AddAddressControllerDelegate:class {
 
 class AddAddressController: UIViewController {
     
-    var tempArray = ["MidTown Manhattan", "Broadway New York", "Beverly Hills CA", "Palo Alto Research Center", "Los Angeles CA", "Oakland CA", "MidTown Manhattan", "Broadway New York", "Beverly Hills CA", "Palo Alto Research Center", "Los Angeles CA", "Oakland CA"]
+    var tempArray:[String]!
     
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     var mainContainer: UIView!
@@ -65,6 +65,9 @@ class AddAddressController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        tempArray = ["MidTown Manhattan", "Broadway New York", "Beverly Hills CA", "Palo Alto Research Center", "Los Angeles CA", "Oakland CA", "MidTown Manhattan", "Broadway New York", "Beverly Hills CA", "Palo Alto Research Center", "Los Angeles CA", "Oakland CA"]
+        collectionView.reloadData()
         
         if let realEstatePropertyToEdit = realEstatePropertyToEdit {
             addressTextFieldOutlet.text = realEstatePropertyToEdit.address
@@ -354,7 +357,10 @@ extension AddAddressController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tempArray.count
+        if let tempArray = tempArray as? [String] {
+            return tempArray.count
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
