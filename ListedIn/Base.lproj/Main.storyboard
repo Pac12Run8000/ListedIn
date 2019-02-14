@@ -291,17 +291,31 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="An error occurred!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aca-7a-exv">
+                                <rect key="frame" x="5" y="129" width="365" height="60"/>
+                                <color key="backgroundColor" red="0.85882352939999995" green="1" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="kLo-IL-bzc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.14639261740000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="aca-7a-exv" firstAttribute="top" secondItem="hs2-8x-uMw" secondAttribute="bottom" constant="5" id="KYJ-CQ-r76"/>
+                            <constraint firstItem="uqK-U6-9sS" firstAttribute="trailing" secondItem="aca-7a-exv" secondAttribute="trailing" constant="5" id="MOL-M4-xgq"/>
                             <constraint firstItem="uqK-U6-9sS" firstAttribute="trailing" secondItem="hs2-8x-uMw" secondAttribute="trailing" constant="5" id="NKg-Ie-4mi"/>
                             <constraint firstItem="hs2-8x-uMw" firstAttribute="leading" secondItem="uqK-U6-9sS" secondAttribute="leading" constant="5" id="Ntu-gk-l9q"/>
+                            <constraint firstItem="aca-7a-exv" firstAttribute="leading" secondItem="uqK-U6-9sS" secondAttribute="leading" constant="5" id="eAI-GA-CI6"/>
                             <constraint firstItem="hs2-8x-uMw" firstAttribute="top" secondItem="uqK-U6-9sS" secondAttribute="top" constant="5" id="jgm-GY-aOG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uqK-U6-9sS"/>
                     </view>
                     <navigationItem key="navigationItem" title="Notes" id="ufm-cf-VnV"/>
                     <connections>
+                        <outlet property="errorLabelOutlet" destination="aca-7a-exv" id="INO-Yo-IWp"/>
                         <outlet property="textFieldOutlet" destination="hs2-8x-uMw" id="gVc-HP-rVB"/>
                     </connections>
                 </viewController>
