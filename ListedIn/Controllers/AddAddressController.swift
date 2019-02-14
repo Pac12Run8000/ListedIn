@@ -14,7 +14,6 @@ protocol AddAddressControllerDelegate:class {
     func AddAddressController(_ controller:AddAddressController, didFinishAdding item:(address:String?, coordinate:CLLocationCoordinate2D?))
     
     func AddAddressController(_ controller:AddAddressController, didFinishEditing item:RealEstateProperty?)
-    
 }
 
 class AddAddressController: UIViewController {
@@ -49,17 +48,18 @@ class AddAddressController: UIViewController {
         setupActivityIndicatorView()
         setupErrorLabelAttributes()
         setupCollectionViewDelegateAndDatasource()
+        collectionView.collectionViewLayout = setupFlowLayout()
+        setnotesTextViewCornerRadius()
         
-        notesTextView.layer.cornerRadius = 5
-        
+        addressTextFieldOutlet.delegate = self
         makeAddressTextFieldFirstResponder()
         setDismissKeyboard()
         
-        addressTextFieldOutlet.delegate = self
         
-        view.backgroundColor = UIColor.greenCyan
+        setupBgColor()
+        setCollectionViewAppearance()
         
-        let itemSize = (UIScreen.main.bounds.width / 3) - 3
+        
         
     }
     
@@ -84,12 +84,26 @@ class AddAddressController: UIViewController {
         }
         mapToLocation(latitude: property.latitude, longitude: property.longitude, myAddress: property.address!)
     }
+}
+// MARK:- UI and Layout details
+extension AddAddressController {
     
+    private func setCollectionViewAppearance() {
+        collectionView.layer.cornerRadius = 5
+        collectionView.backgroundColor = UIColor.greenCyan
+    }
     
+    private func setupBgColor() {
+        view.backgroundColor = UIColor.greenCyan
+    }
     
-    
+    private func setnotesTextViewCornerRadius() {
+        notesTextView.layer.cornerRadius = 5
+    }
     
 }
+
+
 // MARK:- Mapping functionality
 extension AddAddressController {
     
@@ -330,6 +344,8 @@ extension AddAddressController {
     
 }
 
+
+// MARK:- CollectionViewDataSource and CollectionViewDelegate functionality
 extension AddAddressController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     private func setupCollectionViewDelegateAndDatasource() {
@@ -367,6 +383,23 @@ extension AddAddressController {
         }
     }
     
+    
+}
+
+// MARK:- FlowLayout functionality
+extension AddAddressController {
+    
+    private func setupFlowLayout() -> UICollectionViewFlowLayout {
+        
+        let layout = UICollectionViewFlowLayout()
+        let space:CGFloat = 3.0
+        let dimension = ((view.frame.size.width - 10) - (2 * space)) / 3.0
+        layout.minimumLineSpacing = space
+        layout.minimumInteritemSpacing = space
+        layout.itemSize = CGSize(width: dimension, height: dimension)
+        
+        return layout
+    }
     
 }
 
