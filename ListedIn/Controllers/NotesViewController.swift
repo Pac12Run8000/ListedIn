@@ -10,11 +10,7 @@ import UIKit
 import CoreData
 
 
-protocol RealEstatePropertyEditingDelegate:class {
-    
-    func EditAddressNote(_ controller: UIViewController, didFinishEditing item: RealEstateProperty)
-    
-}
+
 
 
 
@@ -27,7 +23,7 @@ class NotesViewController: UIViewController {
     @IBOutlet weak var errorLabelOutlet: UILabel!
     @IBOutlet weak var labelHeightOutlet: NSLayoutConstraint!
     
-    weak var realEstateDelegate:RealEstatePropertyEditingDelegate?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,7 +110,7 @@ extension NotesViewController:UITextFieldDelegate {
                     print("Note saved successfully!")
                     
                     self.realEstateProperty.note = self.textFieldOutlet.text
-                    self.realEstateDelegate?.EditAddressNote(self, didFinishEditing: self.realEstateProperty)
+                    self.navigationController?.popViewController(animated: true)
                 } else {
                     print("Error:\(String(describing: error?.localizedDescription))")
                 }
@@ -135,8 +131,6 @@ extension NotesViewController:UITextFieldDelegate {
         } catch {
             completionHandler(false, error)
         }
-        
-        
     }
     
     
