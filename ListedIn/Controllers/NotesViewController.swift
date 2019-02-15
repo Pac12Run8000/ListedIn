@@ -30,13 +30,16 @@ class NotesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        switch dataController {
-        case .none:
-            print("The dataController is nil")
-        case .some:
-            print("There is a dataController")
-            
-        }
+        
+        print("RealEstateNote:\(realEstateProperty.note!)")
+        
+        
+//        switch dataController {
+//        case .none:
+//            print("The dataController is nil")
+//        case .some:
+//            print("There is a dataController")
+//        }
         
 
     }
@@ -92,9 +95,32 @@ extension NotesViewController:UITextFieldDelegate {
             errorLabelOutlet.text = "enter a note or press (Back)."
         } else {
             animateContstraintForErrorMessage(input: 0, constraintToAnimate: labelHeightOutlet)
-            navigationController?.popViewController(animated: true)
+            saveNote(noteContent: textField.text!, realEstateProperty: realEstateProperty) { (success, error) in
+                if (success!) {
+                    print("Note saved successfully!")
+                    self.navigationController?.popViewController(animated: true)
+                } else {
+                    print("Error:\(String(describing: error?.localizedDescription))")
+                }
+            }
+            
         }
         return true
+    }
+    
+    
+    private func saveNote(noteContent:String, realEstateProperty:RealEstateProperty, completionHandler:@escaping(_ success:Bool?,_ err:Error?) -> ()) {
+        
+        realEstateProperty.note = noteContent
+        
+        do {
+            try dataController.viewContext.save()
+            completionHandler(true,nil)
+        } catch {
+            completionHandler(false, error)
+        }
+        
+        
     }
     
     
