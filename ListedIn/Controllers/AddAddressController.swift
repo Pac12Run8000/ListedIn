@@ -49,7 +49,7 @@ class AddAddressController: UIViewController {
         setupErrorLabelAttributes()
         setupCollectionViewDelegateAndDatasource()
         collectionView.collectionViewLayout = setupFlowLayout()
-        setnotesTextViewCornerRadius()
+        setnotesTextViewProperties()
         
         addressTextFieldOutlet.delegate = self
         makeAddressTextFieldFirstResponder()
@@ -114,7 +114,7 @@ extension AddAddressController {
     }
     
     private func setCollectionViewAppearance() {
-        collectionView.layer.cornerRadius = 5
+        collectionView.layer.cornerRadius = 4
         collectionView.backgroundColor = UIColor.greenCyan
     }
     
@@ -122,8 +122,9 @@ extension AddAddressController {
         view.backgroundColor = UIColor.greenCyan
     }
     
-    private func setnotesTextViewCornerRadius() {
-        notesTextView.layer.cornerRadius = 5
+    private func setnotesTextViewProperties() {
+        notesTextView.layer.cornerRadius = 4
+        notesTextView.text = realEstatePropertyToEdit.note
     }
     
 }
