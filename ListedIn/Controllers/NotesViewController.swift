@@ -79,6 +79,10 @@ extension NotesViewController {
         textFieldOutlet.delegate = self
         textFieldOutlet.becomeFirstResponder()
         textFieldOutlet.placeholder = "add notes here ..."
+        
+        if let realEstateProperty = realEstateProperty {
+            textFieldOutlet.text = realEstateProperty.note
+        }
     }
 }
 

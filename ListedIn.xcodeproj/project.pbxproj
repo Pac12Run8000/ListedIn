@@ -112,8 +112,8 @@
 				091FC06221EDBC56004FAA7A /* CategoryViewController.swift */,
 				091FC07E21F30F24004FAA7A /* RealEstatePropertyViewController.swift */,
 				091FC08221F3A29C004FAA7A /* AddAddressController.swift */,
-				09C006FC22122655006FFEE7 /* ImagesViewController.swift */,
 				09C006FE221226DD006FFEE7 /* NotesViewController.swift */,
+				09C006FC22122655006FFEE7 /* ImagesViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

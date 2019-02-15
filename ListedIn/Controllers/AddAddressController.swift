@@ -100,9 +100,7 @@ extension AddAddressController {
     }
     
     private func setVisibilityForNotesTextView(editState:Bool) {
-//        notesTextView.isHidden = editState == true ? false : true
         if (editState == true) {
-//            notesTextView.isHidden = false
             if ((realEstatePropertyToEdit.note?.isEmpty)! || realEstatePropertyToEdit.note == "") {
                 notesTextView.isHidden = true
             } else {
@@ -134,7 +132,7 @@ extension AddAddressController {
     
     private func setnotesTextViewProperties() {
         notesTextView.layer.cornerRadius = 4
-        notesTextView.text = realEstatePropertyToEdit.note
+//        notesTextView.text = realEstatePropertyToEdit.note
     }
     
 }
