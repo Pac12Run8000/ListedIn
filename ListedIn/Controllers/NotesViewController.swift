@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
 class NotesViewController: UIViewController {
     
     var realEstateProperty:RealEstateProperty! = nil
+    var dataController:DataController!
     
     @IBOutlet weak var textFieldOutlet: UITextField!
     @IBOutlet weak var errorLabelOutlet: UILabel!
@@ -22,13 +24,19 @@ class NotesViewController: UIViewController {
         view.backgroundColor = UIColor.greenCyan
         setupNotesTextField()
         errorMsglayout()
-        labelHeightOutlet.constant = 0
-        
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        switch dataController {
+        case .none:
+            print("The dataController is nil")
+        case .some:
+            print("There is a dataController")
+            
+        }
         
 
     }

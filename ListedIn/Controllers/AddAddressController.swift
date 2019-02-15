@@ -19,7 +19,7 @@ protocol AddAddressControllerDelegate:class {
 class AddAddressController: UIViewController {
     
     var tempArray:[String]!
-    
+    var dataController:DataController!
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     var mainContainer: UIView!
     var viewBackgroundLoading: UIView!
@@ -65,6 +65,8 @@ class AddAddressController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        
         
         tempArray = ["MidTown Manhattan", "Broadway New York", "Beverly Hills CA", "Palo Alto Research Center", "Los Angeles CA", "Oakland CA", "MidTown Manhattan", "Broadway New York", "Beverly Hills CA", "Palo Alto Research Center", "Los Angeles CA", "Oakland CA"]
         collectionView.reloadData()
@@ -406,6 +408,7 @@ extension AddAddressController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "notesSegue") {
             let controller = segue.destination as! NotesViewController
+            controller.dataController = dataController
             if let realEstateProperty = realEstatePropertyToEdit {
                 controller.realEstateProperty = realEstateProperty
             }

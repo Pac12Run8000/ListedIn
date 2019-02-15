@@ -59,6 +59,7 @@ extension RealEstatePropertyViewController {
             control.addressDelegate = self 
         } else if segue.identifier == "editAddresSegue" {
             let control = segue.destination as! AddAddressController
+            control.dataController = dataController
             control.addressDelegate = self
             if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
                 control.realEstatePropertyToEdit = fetchedResultsController.object(at: indexPath)
