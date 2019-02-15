@@ -9,6 +9,15 @@
 import UIKit
 import CoreData
 
+
+protocol RealEstatePropertyEditingDelegate:class {
+    
+    func EditAddressNote(_ controller: UIViewController, didFinishEditing item: RealEstateProperty)
+    
+}
+
+
+
 class NotesViewController: UIViewController {
     
     var realEstateProperty:RealEstateProperty! = nil
@@ -17,6 +26,8 @@ class NotesViewController: UIViewController {
     @IBOutlet weak var textFieldOutlet: UITextField!
     @IBOutlet weak var errorLabelOutlet: UILabel!
     @IBOutlet weak var labelHeightOutlet: NSLayoutConstraint!
+    
+    weak var realEstateDelegate:RealEstatePropertyEditingDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,8 +101,6 @@ extension NotesViewController {
 // MARK:- UITextFieldDelegate functionality
 extension NotesViewController:UITextFieldDelegate {
     
-
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if (textField.text?.isEmpty)! {
@@ -99,10 +108,13 @@ extension NotesViewController:UITextFieldDelegate {
             errorLabelOutlet.text = "enter a note or press (Back)."
         } else {
             animateContstraintForErrorMessage(input: 0, constraintToAnimate: labelHeightOutlet)
+            
             saveNote(noteContent: textField.text!, realEstateProperty: realEstateProperty) { (success, error) in
                 if (success!) {
                     print("Note saved successfully!")
-                    self.navigationController?.popViewController(animated: true)
+                    
+                    self.realEstateProperty.note = self.textFieldOutlet.text
+                    self.realEstateDelegate?.EditAddressNote(self, didFinishEditing: self.realEstateProperty)
                 } else {
                     print("Error:\(String(describing: error?.localizedDescription))")
                 }

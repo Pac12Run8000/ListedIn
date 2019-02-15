@@ -26,6 +26,8 @@ class AddAddressController: UIViewController {
     var realEstatePropertyToEdit:RealEstateProperty!
     var editState:Bool!
     
+    var myRealEstateItem:RealEstateProperty!
+    
     @IBOutlet weak var labelHeightOutlet: NSLayoutConstraint!
     @IBOutlet weak var addressTextFieldOutlet: UITextField!
     @IBOutlet weak var errorLabelOutlet: UILabel!
@@ -92,6 +94,15 @@ class AddAddressController: UIViewController {
 }
 
 
+// MARK: This is the Protocol functionality that updates the UI with the latest notes
+extension AddAddressController: RealEstatePropertyEditingDelegate {
+    
+    func EditAddressNote(_ controller: UIViewController, didFinishEditing item: RealEstateProperty) {
+        notesTextView.text = item.note
+        navigationController?.popViewController(animated: true)
+    }
+}
+
 // MARK:- UI and Layout details
 extension AddAddressController {
     
@@ -130,9 +141,10 @@ extension AddAddressController {
         view.backgroundColor = UIColor.greenCyan
     }
     
+    
+    
     private func setnotesTextViewProperties() {
         notesTextView.layer.cornerRadius = 4
-//        notesTextView.text = realEstatePropertyToEdit.note
     }
     
 }
@@ -418,6 +430,7 @@ extension AddAddressController {
         if (segue.identifier == "notesSegue") {
             let controller = segue.destination as! NotesViewController
             controller.dataController = dataController
+            controller.realEstateDelegate = self
             if let realEstateProperty = realEstatePropertyToEdit {
                 controller.realEstateProperty = realEstateProperty
             }
