@@ -36,17 +36,7 @@ class NotesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
-        print("RealEstateNote:\(realEstateProperty.note!)")
-        
-        
-//        switch dataController {
-//        case .none:
-//            print("The dataController is nil")
-//        case .some:
-//            print("There is a dataController")
-//        }
+
         
 
     }

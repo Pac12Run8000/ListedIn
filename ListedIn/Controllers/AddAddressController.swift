@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 
 protocol AddAddressControllerDelegate:class {
@@ -73,6 +74,10 @@ class AddAddressController: UIViewController {
         tempArray = ["MidTown Manhattan", "Broadway New York", "Beverly Hills CA", "Palo Alto Research Center", "Los Angeles CA", "Oakland CA", "MidTown Manhattan", "Broadway New York", "Beverly Hills CA", "Palo Alto Research Center", "Los Angeles CA", "Oakland CA"]
         collectionView.reloadData()
         
+        if let note = getupdatedRealEstateProperty()?.note {
+            notesTextView.text = "\(String(note))"
+        }
+        
         editState = setEditState(realEstateProperty: realEstatePropertyToEdit)
         
         setVisibilityForNotesTextView(editState: editState)
@@ -81,6 +86,35 @@ class AddAddressController: UIViewController {
         setEnabledMapButton(editState: editState)
         setupEnableImageButton(editState: editState)
         setupEnableNoteButton(editState: editState)
+    }
+    
+    private func getupdatedRealEstateProperty() -> RealEstateProperty? {
+        if let index = realEstateProperties()!.index(of: realEstatePropertyToEdit) {
+            let realEstateObj = realEstateProperties()![index]
+            return realEstateObj
+        }
+        return nil
+    }
+    
+    
+    private func realEstateProperties() -> [RealEstateProperty]? {
+        if let myCategory:Category = realEstatePropertyToEdit.category! {
+            var results:[RealEstateProperty]!
+            
+            let fetchRequest:NSFetchRequest<RealEstateProperty> = RealEstateProperty.fetchRequest()
+            let predicate = NSPredicate(format: "category == %@", myCategory)
+            fetchRequest.predicate = predicate
+            let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: true)
+            fetchRequest.sortDescriptors = [sortDescriptor]
+            
+            do {
+                results = try dataController.viewContext.fetch(fetchRequest)
+            } catch {
+                print("error:\(error.localizedDescription)")
+            }
+            return results
+        }
+        return nil
     }
     
     
