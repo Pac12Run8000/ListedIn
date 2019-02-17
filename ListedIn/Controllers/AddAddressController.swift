@@ -11,7 +11,7 @@ import MapKit
 import CoreData
 
 // Here is the comment
-// Another test coment
+
 protocol AddAddressControllerDelegate:class {
     func AddAddressController(_ controller:AddAddressController, didFinishAdding item:(address:String?, coordinate:CLLocationCoordinate2D?))
     
