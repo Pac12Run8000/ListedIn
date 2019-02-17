@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreData
 
-
+// Here is the comment
 protocol AddAddressControllerDelegate:class {
     func AddAddressController(_ controller:AddAddressController, didFinishAdding item:(address:String?, coordinate:CLLocationCoordinate2D?))
     
@@ -27,7 +27,7 @@ class AddAddressController: UIViewController {
     var realEstatePropertyToEdit:RealEstateProperty!
     var editState:Bool!
     
-    
+
     
     @IBOutlet weak var labelHeightOutlet: NSLayoutConstraint!
     @IBOutlet weak var addressTextFieldOutlet: UITextField!
@@ -75,9 +75,10 @@ class AddAddressController: UIViewController {
         collectionView.reloadData()
         
 
-        notesTextView.text = setRealEstatePropertyNotesText(realEstateProperty: realEstatePropertyToEdit)
+        
         editState = setEditState(realEstateProperty: realEstatePropertyToEdit)
         
+        notesTextView.text = setRealEstatePropertyNotesText(realEstateProperty: realEstatePropertyToEdit)
         setVisibilityForNotesTextView(editState: editState)
         setVisibilityForCollectionView(editState: editState)
         setAddressTextField(realEstatePropertyToEdit: realEstatePropertyToEdit)
@@ -149,10 +150,15 @@ extension AddAddressController {
         view.backgroundColor = UIColor.greenCyan
     }
     
-    
+
     
     private func setnotesTextViewProperties() {
         notesTextView.layer.cornerRadius = 4
+        notesTextView.backgroundColor = UIColor.greenCyan
+        notesTextView.textColor = UIColor.white
+        notesTextView.layer.masksToBounds = true
+        notesTextView.layer.borderColor = UIColor.brightGreen_2.cgColor
+        notesTextView.layer.borderWidth = 2
     }
     
 }
