@@ -89,33 +89,34 @@ class AddAddressController: UIViewController {
     }
     
     private func getupdatedRealEstateProperty() -> RealEstateProperty? {
-        if let index = realEstateProperties()!.index(of: realEstatePropertyToEdit) {
-            let realEstateObj = realEstateProperties()![index]
-            return realEstateObj
-        }
-        return nil
+        return realEstatePropertyToEdit
+//        if let property = realEstatePropertyToEdit, let index = realEstateProperties()!.index(of: property) {
+//            let realEstateObj = realEstateProperties()![index]
+//            return realEstateObj
+//        }
+//        return nil
     }
     
     
-    private func realEstateProperties() -> [RealEstateProperty]? {
-        if let myCategory:Category = realEstatePropertyToEdit.category! {
-            var results:[RealEstateProperty]!
-            
-            let fetchRequest:NSFetchRequest<RealEstateProperty> = RealEstateProperty.fetchRequest()
-            let predicate = NSPredicate(format: "category == %@", myCategory)
-            fetchRequest.predicate = predicate
-            let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: true)
-            fetchRequest.sortDescriptors = [sortDescriptor]
-            
-            do {
-                results = try dataController.viewContext.fetch(fetchRequest)
-            } catch {
-                print("error:\(error.localizedDescription)")
-            }
-            return results
-        }
-        return nil
-    }
+//    private func realEstateProperties() -> [RealEstateProperty]? {
+//        if let myCategory:Category = realEstatePropertyToEdit?.category {
+//            var results:[RealEstateProperty]!
+//            
+//            let fetchRequest:NSFetchRequest<RealEstateProperty> = RealEstateProperty.fetchRequest()
+//            let predicate = NSPredicate(format: "category == %@", myCategory)
+//            fetchRequest.predicate = predicate
+//            let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: true)
+//            fetchRequest.sortDescriptors = [sortDescriptor]
+//            
+//            do {
+//                results = try dataController.viewContext.fetch(fetchRequest)
+//            } catch {
+//                print("error:\(error.localizedDescription)")
+//            }
+//            return results
+//        }
+//        return nil
+//    }
     
     
     @IBAction func mapButtonAction(_ sender: Any) {
