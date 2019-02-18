@@ -188,24 +188,19 @@
                                             <rect key="frame" x="0.0" y="0.0" width="130" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lep-0t-Tdz">
-                                                    <rect key="frame" x="8" y="28" width="114" height="55"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="55" id="kH1-Jj-3VU"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Py3-L8-BlP">
+                                                    <rect key="frame" x="0.0" y="0.0" width="130" height="120"/>
+                                                </imageView>
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="trailingMargin" secondItem="Lep-0t-Tdz" secondAttribute="trailing" id="4Bh-d6-8Ms"/>
-                                            <constraint firstItem="Lep-0t-Tdz" firstAttribute="leading" secondItem="8Q2-04-tsS" secondAttribute="leadingMargin" id="BYf-Xq-Puv"/>
-                                            <constraint firstItem="Lep-0t-Tdz" firstAttribute="top" secondItem="8Q2-04-tsS" secondAttribute="topMargin" id="dIt-5i-TBx"/>
+                                            <constraint firstAttribute="bottom" secondItem="Py3-L8-BlP" secondAttribute="bottom" id="9ol-0k-4hi"/>
+                                            <constraint firstItem="Py3-L8-BlP" firstAttribute="leading" secondItem="8Q2-04-tsS" secondAttribute="leading" id="Btv-AH-8Mf"/>
+                                            <constraint firstItem="Py3-L8-BlP" firstAttribute="top" secondItem="8Q2-04-tsS" secondAttribute="top" id="gze-7O-Lb7"/>
+                                            <constraint firstAttribute="trailing" secondItem="Py3-L8-BlP" secondAttribute="trailing" id="zx4-Yh-m8N"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="addressLabelOutlet" destination="Lep-0t-Tdz" id="naQ-nt-7Tl"/>
+                                            <outlet property="customImageView" destination="Py3-L8-BlP" id="NMP-qT-vdH"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

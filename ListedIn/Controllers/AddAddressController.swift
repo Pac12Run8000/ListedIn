@@ -10,9 +10,7 @@ import UIKit
 import MapKit
 import CoreData
 
-// Here is the comment
-// again1
-// again2
+
 protocol AddAddressControllerDelegate:class {
     func AddAddressController(_ controller:AddAddressController, didFinishAdding item:(address:String?, coordinate:CLLocationCoordinate2D?))
     
@@ -88,11 +86,6 @@ class AddAddressController: UIViewController {
         setupEnableImageButton(editState: editState)
         setupEnableNoteButton(editState: editState)
     }
-    
-    
-    
-    
-
     
     
     @IBAction func mapButtonAction(_ sender: Any) {
@@ -428,9 +421,9 @@ extension AddAddressController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CustomCollectionViewCell
         
-        cell?.addressLabelOutlet.text = tempArray[indexPath.row]
-        cell?.backgroundColor = UIColor.brightGreen_2
-        cell?.addressLabelOutlet.backgroundColor = UIColor.darkGray
+        cell?.customImageView.backgroundColor = UIColor.brightGreen_1
+        
+        
         
         return cell!
     }

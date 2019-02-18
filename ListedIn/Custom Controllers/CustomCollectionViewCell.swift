@@ -10,7 +10,8 @@ import UIKit
 
 class CustomCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var addressLabelOutlet: UILabel!
+    @IBOutlet weak var customImageView: UIImageView!
+    
     
     
 }
