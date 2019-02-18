@@ -211,6 +211,9 @@
                                     <constraint firstAttribute="height" constant="55" id="6eg-Yh-cjB"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="deleteButtonAction:" destination="GaL-0j-12I" eventType="touchUpInside" id="BDo-63-5za"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

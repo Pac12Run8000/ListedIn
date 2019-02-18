@@ -99,6 +99,15 @@ class AddAddressController: UIViewController {
         }
         mapToLocation(latitude: property.latitude, longitude: property.longitude, myAddress: property.address!)
     }
+    
+    @IBAction func deleteButtonAction(_ sender: Any) {
+        print("Test ...")
+    }
+    
+    
+    
+    
+    
 }
 
 
