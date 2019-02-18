@@ -172,7 +172,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zBS-Cg-35j">
-                                <rect key="frame" x="5" y="294.5" width="365" height="323.5"/>
+                                <rect key="frame" x="5" y="354.5" width="365" height="263.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4Jt-NG-i4K">
                                     <size key="itemSize" width="130" height="120"/>
@@ -205,22 +205,32 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1UD-bQ-yUV">
+                                <rect key="frame" x="5" y="294.5" width="365" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="6eg-Yh-cjB"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="zBS-Cg-35j" firstAttribute="leading" secondItem="UBE-xE-9Ip" secondAttribute="leading" constant="5" id="1YH-cX-W5z"/>
                             <constraint firstItem="UBE-xE-9Ip" firstAttribute="trailing" secondItem="msH-vc-Kug" secondAttribute="trailing" constant="5" id="1sz-Qd-aGc"/>
-                            <constraint firstItem="zBS-Cg-35j" firstAttribute="top" secondItem="msH-vc-Kug" secondAttribute="bottom" constant="5" id="2C2-wK-3hz"/>
                             <constraint firstItem="UBE-xE-9Ip" firstAttribute="bottom" secondItem="zBS-Cg-35j" secondAttribute="bottom" constant="5" id="47N-pB-I16"/>
                             <constraint firstItem="UBE-xE-9Ip" firstAttribute="trailing" secondItem="jUD-jh-UUB" secondAttribute="trailing" constant="5" id="CKe-Ng-loN"/>
                             <constraint firstItem="nvo-zP-uLl" firstAttribute="leading" secondItem="UBE-xE-9Ip" secondAttribute="leading" constant="5" id="KXF-zU-LUe"/>
                             <constraint firstItem="jUD-jh-UUB" firstAttribute="top" secondItem="nvo-zP-uLl" secondAttribute="bottom" constant="5" id="Lb9-1i-o9Y"/>
+                            <constraint firstItem="1UD-bQ-yUV" firstAttribute="top" secondItem="msH-vc-Kug" secondAttribute="bottom" constant="5" id="Ljr-Fa-A6f"/>
                             <constraint firstItem="UBE-xE-9Ip" firstAttribute="trailing" secondItem="nvo-zP-uLl" secondAttribute="trailing" constant="5" id="PnA-hh-vN8"/>
+                            <constraint firstItem="UBE-xE-9Ip" firstAttribute="trailing" secondItem="1UD-bQ-yUV" secondAttribute="trailing" constant="5" id="TVm-hA-Nlh"/>
+                            <constraint firstItem="zBS-Cg-35j" firstAttribute="top" secondItem="1UD-bQ-yUV" secondAttribute="bottom" constant="5" id="W3c-eo-ZAl"/>
                             <constraint firstItem="msH-vc-Kug" firstAttribute="top" secondItem="jUD-jh-UUB" secondAttribute="bottom" constant="5" id="bJz-Xh-4ir"/>
                             <constraint firstItem="UBE-xE-9Ip" firstAttribute="trailing" secondItem="zBS-Cg-35j" secondAttribute="trailing" constant="5" id="fO8-Wu-Mpg"/>
                             <constraint firstItem="msH-vc-Kug" firstAttribute="leading" secondItem="UBE-xE-9Ip" secondAttribute="leading" constant="5" id="oab-9T-FQH"/>
                             <constraint firstItem="nvo-zP-uLl" firstAttribute="top" secondItem="UBE-xE-9Ip" secondAttribute="top" constant="5" id="usa-19-Vhp"/>
                             <constraint firstItem="jUD-jh-UUB" firstAttribute="leading" secondItem="UBE-xE-9Ip" secondAttribute="leading" constant="5" id="vhN-zc-L44"/>
+                            <constraint firstItem="1UD-bQ-yUV" firstAttribute="leading" secondItem="UBE-xE-9Ip" secondAttribute="leading" constant="5" id="xfw-Cw-use"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UBE-xE-9Ip"/>
                     </view>
@@ -249,6 +259,7 @@
                         <outlet property="addImageButtonOutlet" destination="hU5-N3-ubq" id="PI8-Lq-S0a"/>
                         <outlet property="addressTextFieldOutlet" destination="nvo-zP-uLl" id="ncm-eu-LTj"/>
                         <outlet property="collectionView" destination="zBS-Cg-35j" id="B3P-5d-APr"/>
+                        <outlet property="deleteButtonOutlet" destination="1UD-bQ-yUV" id="Xz4-8i-b0L"/>
                         <outlet property="errorLabelOutlet" destination="jUD-jh-UUB" id="Aa1-N7-atJ"/>
                         <outlet property="labelHeightOutlet" destination="LGg-IK-BjR" id="cJL-cP-5zW"/>
                         <outlet property="mapButtonOutlet" destination="euG-LT-sMv" id="omk-aK-Tsz"/>

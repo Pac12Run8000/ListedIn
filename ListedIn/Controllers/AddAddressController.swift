@@ -38,9 +38,8 @@ class AddAddressController: UIViewController {
     @IBOutlet weak var notesButtonOutlet: UIBarButtonItem!
    
     @IBOutlet weak var notesTextView: UITextView!
-    
     @IBOutlet weak var collectionView: UICollectionView!
-    
+    @IBOutlet weak var deleteButtonOutlet: UIButton!
     
     
     weak var addressDelegate:AddAddressControllerDelegate?
@@ -85,7 +84,12 @@ class AddAddressController: UIViewController {
         setEnabledMapButton(editState: editState)
         setupEnableImageButton(editState: editState)
         setupEnableNoteButton(editState: editState)
+        setupDeleteNoteButtonOutlet(myEditState: editState)
+        
+        
     }
+    
+
     
     
     @IBAction func mapButtonAction(_ sender: Any) {
@@ -102,6 +106,25 @@ class AddAddressController: UIViewController {
 
 // MARK:- UI and Layout details
 extension AddAddressController {
+    
+    
+    private func setupDeleteNoteButtonOutlet(myEditState: Bool) {
+        deleteButtonOutlet.backgroundColor = UIColor.darkgreen
+        deleteButtonOutlet.setTitleColor(UIColor.brightGreen_1, for: .normal)
+        deleteButtonOutlet.layer.cornerRadius = 4
+        deleteButtonOutlet.layer.borderWidth = 2
+        deleteButtonOutlet.layer.borderColor = UIColor.brightGreen_1.cgColor
+        deleteButtonOutlet.setTitle("delete note", for: .normal)
+        if (myEditState == true) {
+            if ((realEstatePropertyToEdit.note?.isEmpty)! || realEstatePropertyToEdit.note == "") {
+                deleteButtonOutlet.isHidden = true
+            } else {
+                deleteButtonOutlet.isHidden = false
+            }
+        } else {
+            deleteButtonOutlet.isHidden = true
+        }
+    }
     
     private func setRealEstatePropertyNotesText(realEstateProperty:RealEstateProperty?) -> String {
         if let note = realEstateProperty?.note as? String {
