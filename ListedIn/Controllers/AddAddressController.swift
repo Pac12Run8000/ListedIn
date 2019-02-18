@@ -101,7 +101,18 @@ class AddAddressController: UIViewController {
     }
     
     @IBAction func deleteButtonAction(_ sender: Any) {
-        print("Test ...")
+        if let realEstatePropertyToEdit = realEstatePropertyToEdit {
+            realEstatePropertyToEdit.note = ""
+            do {
+            try dataController.viewContext.save()
+                print("success")
+                notesTextView.text = ""
+                notesTextView.isHidden = true
+                deleteButtonOutlet.isHidden = true
+            } catch {
+                print("There was an error setting note to empty string.\(error.localizedDescription)")
+            }
+        }
     }
     
     
