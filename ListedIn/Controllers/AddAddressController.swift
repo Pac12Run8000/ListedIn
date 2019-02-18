@@ -104,17 +104,34 @@ class AddAddressController: UIViewController {
         if let realEstatePropertyToEdit = realEstatePropertyToEdit {
             realEstatePropertyToEdit.note = ""
             
+            
             removeNoteFromCoreData { (success, err) in
                 if (success!) {
-                    self.notesTextView.text = ""
-                    self.notesTextView.isHidden = true
-                    self.deleteButtonOutlet.isHidden = true
+                    self.animateNotesFunctionalityFading(textView: self.notesTextView, button: self.deleteButtonOutlet, completionHandler: {
+                        self.notesTextView.text = ""
+                    })
                 } else {
                     print("There was an error setting note to empty string.\(err!.localizedDescription)")
                 }
             }
         }
     }
+}
+
+// MARK:- Animation functionality
+extension AddAddressController {
+    
+    private func animateNotesFunctionalityFading(textView:UITextView, button:UIButton, completionHandler:@escaping() -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+            UIView.animate(withDuration: 0.5, delay: 0.2, options: .curveEaseOut, animations: {
+                
+                textView.alpha = 0.0
+                button.alpha = 0.0
+                
+            }, completion: nil)
+        })
+    }
+    
 }
 
 // MARK:- CoreData Functionality
