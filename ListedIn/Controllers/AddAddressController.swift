@@ -89,7 +89,10 @@ class AddAddressController: UIViewController {
         
     }
     
-
+    @IBAction func imagesAction(_ sender: Any) {
+        self.addPhotoFromCameraOrLibrary()
+    }
+    
     
     
     @IBAction func mapButtonAction(_ sender: Any) {
@@ -533,6 +536,15 @@ extension AddAddressController {
         return layout
     }
     
+}
+
+
+// MARK:- Camera and PhotoLibrary
+extension AddAddressController {
+    
+    private func addPhotoFromCameraOrLibrary() {
+        print("Get Photos ...")
+    }
 }
 
 

@@ -247,7 +247,7 @@
                             </barButtonItem>
                             <barButtonItem systemItem="camera" id="hU5-N3-ubq">
                                 <connections>
-                                    <segue destination="DlR-ae-5Fg" kind="show" id="c1V-p8-rRz"/>
+                                    <action selector="imagesAction:" destination="GaL-0j-12I" id="jPX-fE-SVf"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="compose" id="gLY-e8-8gA">
