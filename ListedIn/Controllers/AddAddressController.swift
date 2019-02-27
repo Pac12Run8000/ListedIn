@@ -543,7 +543,17 @@ extension AddAddressController {
 extension AddAddressController {
     
     private func addPhotoFromCameraOrLibrary() {
-        print("Get Photos ...")
+
+        let actionSheet = UIAlertController(title: "Choose Media", message: "", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action) in
+            print("Get library")
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action) in
+            print("Get Camera")
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(actionSheet, animated: true, completion: nil)
+        
     }
 }
 
