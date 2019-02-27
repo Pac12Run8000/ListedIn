@@ -26,6 +26,8 @@ class AddAddressController: UIViewController {
     var viewBackgroundLoading: UIView!
     var realEstatePropertyToEdit:RealEstateProperty!
     var editState:Bool!
+    var actionSheet:UIAlertController!
+    
     
 
     
@@ -539,22 +541,71 @@ extension AddAddressController {
 }
 
 
-// MARK:- Camera and PhotoLibrary
+// MARK:- Camera and PhotoLibrary ActionSheet functionality
 extension AddAddressController {
     
     private func addPhotoFromCameraOrLibrary() {
+        
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
 
-        let actionSheet = UIAlertController(title: "Choose Media", message: "", preferredStyle: .actionSheet)
+        actionSheet = UIAlertController(title: "Choose Media", message: "", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action) in
-            print("Get library")
+            
+            imagePickerController.sourceType = .photoLibrary
+            self.present(imagePickerController, animated: true, completion: nil)
+            
         }))
         actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action) in
-            print("Get Camera")
+            
+            if (UIImagePickerController.isSourceTypeAvailable(.camera)) {
+                imagePickerController.sourceType = .camera
+                self.present(imagePickerController, animated: true, completion: nil)
+            } else {
+                print("The camera isn't available")
+                self.alertNotification(message: "The camera isn't available on this device.")
+            }
+            
         }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(actionSheet, animated: true, completion: nil)
         
     }
+}
+// MARK:- AlertController functionality
+extension AddAddressController {
+    
+    private func alertNotification(message:String) {
+        let alert = UIAlertController(title: "", message: "\(message)", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+}
+
+
+// MARK:- UIPickerController functionality
+extension AddAddressController:UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            
+            picker.dismiss(animated: true) {
+                print("Image Data: \(image)")
+            }
+            
+        } else {
+            self.alertNotification(message: "There was a problem with the selected image.")
+        }
+    }
+    
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+        present(actionSheet, animated: true, completion: nil)
+    }
+    
+    
 }
 
 
