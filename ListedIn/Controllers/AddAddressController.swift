@@ -19,7 +19,9 @@ protocol AddAddressControllerDelegate:class {
 
 class AddAddressController: UIViewController {
     
-    var tempArray:[String]!
+//    var tempArray:[String]!
+    
+    var realEstateImagesArray:[RealEstateImages] = [RealEstateImages]()
     var dataController:DataController!
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     var mainContainer: UIView!
@@ -72,7 +74,7 @@ class AddAddressController: UIViewController {
         
         
         
-        tempArray = ["MidTown Manhattan", "Broadway New York", "Beverly Hills CA", "Palo Alto Research Center", "Los Angeles CA", "Oakland CA", "MidTown Manhattan", "Broadway New York", "Beverly Hills CA", "Palo Alto Research Center", "Los Angeles CA", "Oakland CA"]
+        
         collectionView.reloadData()
         
 
@@ -150,6 +152,10 @@ extension AddAddressController {
             completionHandler(false, error)
         }
     }
+    
+    
+    
+    
 }
 
 
@@ -486,8 +492,8 @@ extension AddAddressController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let tempArray = tempArray as? [String] {
-            return tempArray.count
+        if let realEstateImagesArray = realEstateImagesArray as? [RealEstateImages] {
+            return realEstateImagesArray.count
         }
         return 0
     }
@@ -591,7 +597,11 @@ extension AddAddressController:UIImagePickerControllerDelegate, UINavigationCont
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
             picker.dismiss(animated: true) {
-                print("Image Data: \(image)")
+                
+                if (self.editState) {
+                    print("Image Data: \(image.pngData())")
+                }
+                
             }
             
         } else {
