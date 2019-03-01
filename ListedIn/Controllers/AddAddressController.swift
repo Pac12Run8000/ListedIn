@@ -207,6 +207,7 @@ extension AddAddressController {
     
     
     private func setupDeleteNoteButtonOutlet(myEditState: Bool) {
+        deleteButtonOutlet.alpha = 1.0
         deleteButtonOutlet.backgroundColor = UIColor.darkgreen
         deleteButtonOutlet.setTitleColor(UIColor.brightGreen_1, for: .normal)
         deleteButtonOutlet.layer.cornerRadius = 4
@@ -236,11 +237,13 @@ extension AddAddressController {
     }
     
     private func setVisibilityForNotesTextView(editState:Bool) {
+        notesTextView.alpha = 1.0
         if (editState == true) {
             if ((realEstatePropertyToEdit.note?.isEmpty)! || realEstatePropertyToEdit.note == "") {
                 notesTextView.isHidden = true
             } else {
                 notesTextView.isHidden = false
+                print("notesTextView is visible")
             }
         } else {
             notesTextView.isHidden = true
