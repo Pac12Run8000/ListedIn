@@ -647,7 +647,8 @@ extension AddAddressController:UIImagePickerControllerDelegate, UINavigationCont
                     
                     let realEstateImage = RealEstateImages(context: self.dataController.viewContext)
                     realEstateImage.creationDate = Date()
-                    realEstateImage.image = image.pngData()
+                    realEstateImage.image = image.jpegData(compressionQuality: CGFloat(integerLiteral: 50))
+                   
                     self.realEstateImagesArray.append(realEstateImage)
                     
                     DispatchQueue.main.async {
@@ -671,6 +672,8 @@ extension AddAddressController:UIImagePickerControllerDelegate, UINavigationCont
     
     
 }
+
+
 
 
 

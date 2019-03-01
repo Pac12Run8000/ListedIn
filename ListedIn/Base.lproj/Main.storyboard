@@ -188,7 +188,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="130" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Py3-L8-BlP">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Py3-L8-BlP">
                                                     <rect key="frame" x="0.0" y="0.0" width="130" height="120"/>
                                                 </imageView>
                                             </subviews>
