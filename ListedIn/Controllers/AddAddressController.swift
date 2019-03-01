@@ -19,7 +19,7 @@ protocol AddAddressControllerDelegate:class {
 
 class AddAddressController: UIViewController {
     
-//    var tempArray:[String]!
+
     
     var realEstateImagesArray:[RealEstateImages] = [RealEstateImages]()
     var dataController:DataController!
@@ -69,9 +69,24 @@ class AddAddressController: UIViewController {
         
     }
     
+
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        
+        
+        getRealEstateImages(controller: dataController) { (success, images, err) in
+            if (success!) {
+                for image in images! {
+                    self.realEstateImagesArray.append(image)
+                }
+                self.collectionView.reloadData()
+            } else {
+                let myError = err == nil ? "No error description available" : err?.localizedDescription
+                print("There was an error: \(String(describing: myError))")
+            }
+        }
         
         
         
@@ -154,6 +169,32 @@ extension AddAddressController {
     }
     
     
+    private func getRealEstateImages(controller:DataController? = nil, completionHandler:@escaping(_ success:Bool?,_ images:[RealEstateImages]?, _ error:Error?) -> ()) {
+        
+        guard controller != nil else {
+            print("dataController is nil")
+            completionHandler(false, nil, nil)
+            return
+        }
+        
+            
+            var results:[RealEstateImages]!
+            
+            let fetchRequest:NSFetchRequest<RealEstateImages> = RealEstateImages.fetchRequest()
+            let predicate = NSPredicate(format: "realEstateProperty = %@", realEstatePropertyToEdit)
+            fetchRequest.predicate = predicate
+            let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
+            fetchRequest.sortDescriptors = [sortDescriptor]
+            do {
+                results = try controller?.viewContext.fetch(fetchRequest)
+                completionHandler(true, results, nil)
+            } catch {
+                print("There was an error with the images")
+                completionHandler(false, nil, nil)
+            }
+    }
+    
+    
     
     
 }
@@ -218,7 +259,7 @@ extension AddAddressController {
     
     private func setCollectionViewAppearance() {
         collectionView.layer.cornerRadius = 4
-        collectionView.backgroundColor = UIColor.greenCyan
+        collectionView.backgroundColor = UIColor.darkgreen
     }
     
     private func setupBgColor() {
@@ -501,10 +542,8 @@ extension AddAddressController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CustomCollectionViewCell
         
+        cell?.customImageView.image = UIImage(data: realEstateImagesArray[indexPath.row].image!)
         cell?.customImageView.backgroundColor = UIColor.brightGreen_1
-        
-        
-        
         return cell!
     }
     
@@ -519,7 +558,6 @@ extension AddAddressController {
         if (segue.identifier == "notesSegue") {
             let controller = segue.destination as! NotesViewController
             controller.dataController = dataController
-//            controller.realEstateDelegate = self
             if let realEstateProperty = realEstatePropertyToEdit {
                 controller.realEstateProperty = realEstateProperty
             }
@@ -590,20 +628,36 @@ extension AddAddressController {
 }
 
 
-// MARK:- UIPickerController functionality
+// MARK:- UIPickerControllerDelegate, UINavigationControllerDelegate functionality
 extension AddAddressController:UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    
+
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        
+        
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            
+           
+
             picker.dismiss(animated: true) {
-                
+
                 if (self.editState) {
-                    print("Image Data: \(image.pngData())")
+                    
+                    let realEstateImage = RealEstateImages(context: self.dataController.viewContext)
+                    realEstateImage.creationDate = Date()
+                    realEstateImage.image = image.pngData()
+                    self.realEstateImagesArray.append(realEstateImage)
+                    
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                    
                 }
-                
+
             }
-            
+
         } else {
             self.alertNotification(message: "There was a problem with the selected image.")
         }
