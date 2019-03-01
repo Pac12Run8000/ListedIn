@@ -631,16 +631,10 @@ extension AddAddressController {
 // MARK:- UIPickerControllerDelegate, UINavigationControllerDelegate functionality
 extension AddAddressController:UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    
-
-    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        
-        
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-           
-
+            
             picker.dismiss(animated: true) {
 
                 if (self.editState) {

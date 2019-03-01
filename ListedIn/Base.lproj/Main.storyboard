@@ -163,16 +163,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="msH-vc-Kug">
-                                <rect key="frame" x="5" y="154.5" width="365" height="135"/>
+                                <rect key="frame" x="5" y="154.5" width="365" height="170"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="135" id="RgC-W6-eCI"/>
+                                    <constraint firstAttribute="height" constant="170" id="RgC-W6-eCI"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zBS-Cg-35j">
-                                <rect key="frame" x="5" y="354.5" width="365" height="263.5"/>
+                                <rect key="frame" x="5" y="389.5" width="365" height="228.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4Jt-NG-i4K">
                                     <size key="itemSize" width="130" height="120"/>
@@ -206,7 +206,7 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1UD-bQ-yUV">
-                                <rect key="frame" x="5" y="294.5" width="365" height="55"/>
+                                <rect key="frame" x="5" y="329.5" width="365" height="55"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="6eg-Yh-cjB"/>
                                 </constraints>

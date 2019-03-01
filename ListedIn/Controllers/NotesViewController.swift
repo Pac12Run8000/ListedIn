@@ -10,10 +10,6 @@ import UIKit
 import CoreData
 
 
-
-// again2
-
-
 class NotesViewController: UIViewController {
     
     var realEstateProperty:RealEstateProperty! = nil
