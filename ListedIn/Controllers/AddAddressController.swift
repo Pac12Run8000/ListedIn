@@ -208,7 +208,7 @@ extension AddAddressController {
     
     private func setupDeleteNoteButtonOutlet(myEditState: Bool) {
         deleteButtonOutlet.alpha = 1.0
-        deleteButtonOutlet.backgroundColor = UIColor.darkgreen
+        deleteButtonOutlet.backgroundColor = UIColor.red
         deleteButtonOutlet.setTitleColor(UIColor.brightGreen_1, for: .normal)
         deleteButtonOutlet.layer.cornerRadius = 4
         deleteButtonOutlet.layer.borderWidth = 2

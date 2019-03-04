@@ -22,7 +22,8 @@ class CustomCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         
         customImageView.backgroundColor = UIColor.brightGreen_2
-        
+        customImageView.layer.borderWidth = 2
+        customImageView.layer.borderColor = UIColor.white.cgColor
 
     }
     

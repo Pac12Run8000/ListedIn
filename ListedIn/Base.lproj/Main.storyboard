@@ -172,7 +172,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zBS-Cg-35j">
-                                <rect key="frame" x="5" y="389.5" width="365" height="228.5"/>
+                                <rect key="frame" x="5" y="369.5" width="365" height="248.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4Jt-NG-i4K">
                                     <size key="itemSize" width="130" height="120"/>
@@ -206,9 +206,9 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1UD-bQ-yUV">
-                                <rect key="frame" x="5" y="329.5" width="365" height="55"/>
+                                <rect key="frame" x="5" y="329.5" width="365" height="35"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="55" id="6eg-Yh-cjB"/>
+                                    <constraint firstAttribute="height" constant="35" id="6eg-Yh-cjB"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <connections>
