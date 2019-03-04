@@ -544,9 +544,8 @@ extension AddAddressController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CustomCollectionViewCell
+        cell?.realEstateImage = realEstateImagesArray[indexPath.row]
         
-        cell?.customImageView.image = UIImage(data: realEstateImagesArray[indexPath.row].image!)
-        cell?.customImageView.backgroundColor = UIColor.brightGreen_1
         return cell!
     }
     

@@ -12,6 +12,21 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var customImageView: UIImageView!
     
+    var realEstateImage:RealEstateImages? {
+        didSet {
+            self.customImageView.image = UIImage(data: (realEstateImage?.image)!)
+        }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        customImageView.backgroundColor = UIColor.brightGreen_2
+        
+
+    }
+    
     
     
 }
+
