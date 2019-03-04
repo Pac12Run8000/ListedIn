@@ -191,16 +191,46 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Py3-L8-BlP">
                                                     <rect key="frame" x="0.0" y="0.0" width="130" height="120"/>
                                                 </imageView>
+                                                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Wq-QG-yXp">
+                                                    <rect key="frame" x="5" y="5" width="20" height="20"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="kuv-mc-DZG">
+                                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pZl-N8-vzW">
+                                                                <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                                <state key="normal" image="close"/>
+                                                                <connections>
+                                                                    <action selector="deleteButtonAction:" destination="8Q2-04-tsS" eventType="touchUpInside" id="Zks-3Y-u7X"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="pZl-N8-vzW" secondAttribute="trailing" id="2wa-r0-FuD"/>
+                                                            <constraint firstAttribute="bottom" secondItem="pZl-N8-vzW" secondAttribute="bottom" id="JbV-RO-cDM"/>
+                                                            <constraint firstItem="pZl-N8-vzW" firstAttribute="top" secondItem="kuv-mc-DZG" secondAttribute="top" id="Lzv-Aa-fV6"/>
+                                                            <constraint firstItem="pZl-N8-vzW" firstAttribute="leading" secondItem="kuv-mc-DZG" secondAttribute="leading" id="zdO-XL-4r2"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="20" id="Lcv-RW-XJA"/>
+                                                        <constraint firstAttribute="height" constant="20" id="nuU-K0-HHr"/>
+                                                    </constraints>
+                                                    <blurEffect style="extraLight"/>
+                                                </visualEffectView>
                                             </subviews>
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="Py3-L8-BlP" secondAttribute="bottom" id="9ol-0k-4hi"/>
                                             <constraint firstItem="Py3-L8-BlP" firstAttribute="leading" secondItem="8Q2-04-tsS" secondAttribute="leading" id="Btv-AH-8Mf"/>
+                                            <constraint firstItem="2Wq-QG-yXp" firstAttribute="top" secondItem="8Q2-04-tsS" secondAttribute="top" constant="5" id="FL3-xA-a1u"/>
+                                            <constraint firstItem="2Wq-QG-yXp" firstAttribute="leading" secondItem="8Q2-04-tsS" secondAttribute="leading" constant="5" id="U8k-wB-qV5"/>
                                             <constraint firstItem="Py3-L8-BlP" firstAttribute="top" secondItem="8Q2-04-tsS" secondAttribute="top" id="gze-7O-Lb7"/>
                                             <constraint firstAttribute="trailing" secondItem="Py3-L8-BlP" secondAttribute="trailing" id="zx4-Yh-m8N"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="customImageView" destination="Py3-L8-BlP" id="NMP-qT-vdH"/>
+                                            <outlet property="deleteButtonBackgroundBackgroundView" destination="2Wq-QG-yXp" id="pFP-Ue-Ijc"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -255,6 +285,11 @@
                                     <segue destination="QPR-aw-lh8" kind="show" identifier="notesSegue" id="HCM-JJ-b58"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem systemItem="trash" id="yAs-PD-rBw">
+                                <connections>
+                                    <action selector="editImageAction:" destination="GaL-0j-12I" id="eug-Zr-fO8"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -263,6 +298,7 @@
                         <outlet property="addressTextFieldOutlet" destination="nvo-zP-uLl" id="ncm-eu-LTj"/>
                         <outlet property="collectionView" destination="zBS-Cg-35j" id="B3P-5d-APr"/>
                         <outlet property="deleteButtonOutlet" destination="1UD-bQ-yUV" id="Xz4-8i-b0L"/>
+                        <outlet property="editImageOutlet" destination="yAs-PD-rBw" id="VZE-hj-avx"/>
                         <outlet property="errorLabelOutlet" destination="jUD-jh-UUB" id="Aa1-N7-atJ"/>
                         <outlet property="labelHeightOutlet" destination="LGg-IK-BjR" id="cJL-cP-5zW"/>
                         <outlet property="mapButtonOutlet" destination="euG-LT-sMv" id="omk-aK-Tsz"/>
@@ -368,6 +404,9 @@
             <point key="canvasLocation" x="132" y="124.58770614692655"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="close" width="512" height="512"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="6YN-nw-5Df"/>
     </inferredMetricsTieBreakers>

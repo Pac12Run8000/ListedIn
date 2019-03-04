@@ -29,6 +29,7 @@ class AddAddressController: UIViewController {
     var realEstatePropertyToEdit:RealEstateProperty!
     var editState:Bool!
     var actionSheet:UIAlertController!
+    var isCollectionViewInEditingMode:Bool = true
     
     
 
@@ -44,12 +45,15 @@ class AddAddressController: UIViewController {
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var deleteButtonOutlet: UIButton!
+    @IBOutlet weak var editImageOutlet: UIBarButtonItem!
     
     
     weak var addressDelegate:AddAddressControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
         
         setupActivityIndicatorView()
         setupErrorLabelAttributes()
@@ -107,6 +111,14 @@ class AddAddressController: UIViewController {
         
         
     }
+    
+    @IBAction func editImageAction(_ sender: Any) {
+        isCollectionViewInEditingMode = !isCollectionViewInEditingMode
+        collectionView.reloadData()
+    }
+    
+    
+    
     
     @IBAction func imagesAction(_ sender: Any) {
         self.addPhotoFromCameraOrLibrary()
@@ -243,7 +255,6 @@ extension AddAddressController {
                 notesTextView.isHidden = true
             } else {
                 notesTextView.isHidden = false
-                print("notesTextView is visible")
             }
         } else {
             notesTextView.isHidden = true
@@ -530,6 +541,8 @@ extension AddAddressController {
 // MARK:- CollectionViewDataSource and CollectionViewDelegate functionality
 extension AddAddressController: UICollectionViewDataSource, UICollectionViewDelegate {
     
+    
+    
     private func setupCollectionViewDelegateAndDatasource() {
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -545,7 +558,7 @@ extension AddAddressController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CustomCollectionViewCell
         cell?.realEstateImage = realEstateImagesArray[indexPath.row]
-        
+        cell?.deleteButtonBackgroundBackgroundView.isHidden = isCollectionViewInEditingMode
         return cell!
     }
     
