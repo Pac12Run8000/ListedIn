@@ -115,6 +115,11 @@ class AddAddressController: UIViewController {
     @IBAction func editImageAction(_ sender: Any) {
         isCollectionViewInEditingMode = !isCollectionViewInEditingMode
         collectionView.reloadData()
+        
+        isDeleteNotesButtonHidden(localEditState: editState, deleteBtn: deleteButtonOutlet)
+
+        editImageOutlet.tintColor = isCollectionViewInEditingMode ? UIColor.brightGreen_1 : UIColor.red
+
     }
     
     
@@ -214,11 +219,12 @@ extension AddAddressController {
 
 
 
-// MARK:- UI and Layout details
+// MARK:- Delete button, noteTextField Layout isHidden functionality
 extension AddAddressController {
     
     
     private func setupDeleteNoteButtonOutlet(myEditState: Bool) {
+        
         deleteButtonOutlet.alpha = 1.0
         deleteButtonOutlet.backgroundColor = UIColor.red
         deleteButtonOutlet.setTitleColor(UIColor.brightGreen_1, for: .normal)
@@ -226,15 +232,9 @@ extension AddAddressController {
         deleteButtonOutlet.layer.borderWidth = 2
         deleteButtonOutlet.layer.borderColor = UIColor.brightGreen_1.cgColor
         deleteButtonOutlet.setTitle("delete note", for: .normal)
-        if (myEditState == true) {
-            if ((realEstatePropertyToEdit.note?.isEmpty)! || realEstatePropertyToEdit.note == "") {
-                deleteButtonOutlet.isHidden = true
-            } else {
-                deleteButtonOutlet.isHidden = false
-            }
-        } else {
-            deleteButtonOutlet.isHidden = true
-        }
+        
+        isDeleteNotesButtonHidden(localEditState: editState, deleteBtn: deleteButtonOutlet)
+        
     }
     
     private func setRealEstatePropertyNotesText(realEstateProperty:RealEstateProperty?) -> String {
@@ -679,6 +679,23 @@ extension AddAddressController:UIImagePickerControllerDelegate, UINavigationCont
         present(actionSheet, animated: true, completion: nil)
     }
     
+    
+}
+
+// MARK:- isCollectionViewInEditingMode Methods
+extension AddAddressController {
+    
+    private func isDeleteNotesButtonHidden(localEditState:Bool, deleteBtn:UIButton) {
+        if (localEditState == true) {
+            if ((realEstatePropertyToEdit.note?.isEmpty)! || realEstatePropertyToEdit.note == "") {
+                deleteBtn.isHidden = true
+            } else {
+                deleteBtn.isHidden = isCollectionViewInEditingMode
+            }
+        } else {
+            deleteBtn.isHidden = true
+        }
+    }
     
 }
 
