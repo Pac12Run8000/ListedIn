@@ -53,6 +53,18 @@ class AddAddressController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getRealEstateImages(controller: dataController) { (success, images, err) in
+            if (success!) {
+//                self.realEstateImagesArray.removeAll()
+                for image in images! {
+                    self.realEstateImagesArray.append(image)
+                }
+                self.collectionView.reloadData()
+            } else {
+                let myError = err == nil ? "No error description available" : err?.localizedDescription
+                print("There was an error: \(String(describing: myError))")
+            }
+        }
 
         
         setupActivityIndicatorView()
@@ -77,22 +89,6 @@ class AddAddressController: UIViewController {
         super.viewWillAppear(animated)
         
         
-        
-        getRealEstateImages(controller: dataController) { (success, images, err) in
-            if (success!) {
-                for image in images! {
-                    self.realEstateImagesArray.append(image)
-                }
-                self.collectionView.reloadData()
-            } else {
-                let myError = err == nil ? "No error description available" : err?.localizedDescription
-                print("There was an error: \(String(describing: myError))")
-            }
-        }
-        
-        
-        
-        collectionView.reloadData()
         
 
         
@@ -176,6 +172,15 @@ extension AddAddressController {
 // MARK:- CoreData Functionality
 extension AddAddressController {
     
+    private func saveCoreData(controller:DataController, completionHandler handler:@escaping(_ success:Bool?, _ error:Error?) ->()) {
+        do {
+            try controller.viewContext.save()
+            handler(true, nil)
+        } catch {
+            handler(false, error)
+        }
+    }
+    
     private func removeNoteFromCoreData(completionHandler:@escaping(_ success:Bool?, _ error:Error?) -> ()) {
         do {
             try dataController.viewContext.save()
@@ -187,16 +192,16 @@ extension AddAddressController {
     
     
     private func getRealEstateImages(controller:DataController? = nil, completionHandler:@escaping(_ success:Bool?,_ images:[RealEstateImages]?, _ error:Error?) -> ()) {
-        
+
         guard controller != nil else {
             print("dataController is nil")
             completionHandler(false, nil, nil)
             return
         }
-        
-            
+
+
             var results:[RealEstateImages]!
-            
+
             let fetchRequest:NSFetchRequest<RealEstateImages> = RealEstateImages.fetchRequest()
             let predicate = NSPredicate(format: "realEstateProperty = %@", realEstatePropertyToEdit)
             fetchRequest.predicate = predicate
@@ -557,9 +562,11 @@ extension AddAddressController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CustomCollectionViewCell
+        
         cell?.realEstateImage = realEstateImagesArray[indexPath.row]
         cell?.deleteButtonBackgroundBackgroundView.isHidden = isCollectionViewInEditingMode
         cell?.customCellDelegate = self
+        
         return cell!
     }
     
@@ -644,8 +651,8 @@ extension AddAddressController {
 }
 
 
-// MARK:- UIPickerControllerDelegate, UINavigationControllerDelegate functionality
-extension AddAddressController:UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+// MARK:- UIImagePickerControllerDelegate, UINavigationControllerDelegate functionality
+extension AddAddressController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
@@ -654,13 +661,17 @@ extension AddAddressController:UIImagePickerControllerDelegate, UINavigationCont
             picker.dismiss(animated: true) {
 
                 if (self.editState) {
-                    
+                
                     let realEstateImage = RealEstateImages(context: self.dataController.viewContext)
                     realEstateImage.creationDate = Date()
                     realEstateImage.image = image.jpegData(compressionQuality: CGFloat(integerLiteral: 50))
-                   
+                    realEstateImage.realEstateProperty = self.realEstatePropertyToEdit
                     self.realEstateImagesArray.append(realEstateImage)
                     
+                    self.saveCoreData(controller: self.dataController, completionHandler: { (sucess, error) in
+                        
+                    })
+                
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
                     }
@@ -668,6 +679,8 @@ extension AddAddressController:UIImagePickerControllerDelegate, UINavigationCont
                 }
 
             }
+            
+            
 
         } else {
             self.alertNotification(message: "There was a problem with the selected image.")
@@ -683,16 +696,25 @@ extension AddAddressController:UIImagePickerControllerDelegate, UINavigationCont
     
 }
 
-// MARK:- isCollectionViewInEditingMode Methods
+// MARK:- CustomCellDelegate Methods
 extension AddAddressController: CustomCellDelegate  {
     
     func deleteImage(cell: CustomCollectionViewCell) {
         
         if let indexPath = collectionView?.indexPath(for: cell) {
+            
             if let imageToDelete = realEstateImagesArray[indexPath.row] as? RealEstateImages {
-                realEstateImagesArray.remove(at: indexPath.row)
-                collectionView.deleteItems(at: [indexPath])
+                
+                    realEstateImagesArray.remove(at: indexPath.row)
+                    collectionView.deleteItems(at: [indexPath])
+                    dataController.viewContext.delete(imageToDelete)
+                
+                saveCoreData(controller: dataController) { (success, error) in
+                    
+                }
+                
             }
+            
         }
         
     }
