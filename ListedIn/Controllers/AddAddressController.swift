@@ -55,11 +55,15 @@ class AddAddressController: UIViewController {
         
         getRealEstateImages(controller: dataController) { (success, images, err) in
             if (success!) {
-//                self.realEstateImagesArray.removeAll()
-                for image in images! {
-                    self.realEstateImagesArray.append(image)
+
+                if let images = images {
+                    self.realEstateImagesArray = images
                 }
-                self.collectionView.reloadData()
+                
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+                
             } else {
                 let myError = err == nil ? "No error description available" : err?.localizedDescription
                 print("There was an error: \(String(describing: myError))")
@@ -81,6 +85,15 @@ class AddAddressController: UIViewController {
         setupBgColor()
         setCollectionViewAppearance()
         
+    }
+    
+    
+    private func returnImagesArray(r_Images:[RealEstateImages]) -> [RealEstateImages]? {
+        var imagesArray = [RealEstateImages]()
+        for image in r_Images {
+            imagesArray.append(image)
+        }
+        return imagesArray
     }
     
 
@@ -205,7 +218,7 @@ extension AddAddressController {
             let fetchRequest:NSFetchRequest<RealEstateImages> = RealEstateImages.fetchRequest()
             let predicate = NSPredicate(format: "realEstateProperty = %@", realEstatePropertyToEdit)
             fetchRequest.predicate = predicate
-            let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
+            let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: true)
             fetchRequest.sortDescriptors = [sortDescriptor]
             do {
                 results = try controller?.viewContext.fetch(fetchRequest)
@@ -669,12 +682,15 @@ extension AddAddressController: UIImagePickerControllerDelegate, UINavigationCon
                     self.realEstateImagesArray.append(realEstateImage)
                     
                     self.saveCoreData(controller: self.dataController, completionHandler: { (sucess, error) in
+                        if (error != nil) {
+                            print("save error:\(String(describing: error?.localizedDescription))")
+                        }
                         
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
                     })
-                
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                    }
+                    
                     
                 }
 
@@ -710,7 +726,9 @@ extension AddAddressController: CustomCellDelegate  {
                     dataController.viewContext.delete(imageToDelete)
                 
                 saveCoreData(controller: dataController) { (success, error) in
-                    
+                    if (error != nil) {
+                        print("save error:\(String(describing: error?.localizedDescription))")
+                    }
                 }
                 
             }
