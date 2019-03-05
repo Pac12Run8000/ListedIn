@@ -152,16 +152,16 @@ class AddAddressController: UIViewController {
         if let realEstatePropertyToEdit = realEstatePropertyToEdit {
             realEstatePropertyToEdit.note = ""
             
-            
-            removeNoteFromCoreData { (success, err) in
+            saveCoreData(controller: dataController) { (success, error) in
                 if (success!) {
                     self.animateNotesFunctionalityFading(textView: self.notesTextView, button: self.deleteButtonOutlet, completionHandler: {
                         self.notesTextView.text = ""
                     })
                 } else {
-                    print("There was an error setting note to empty string.\(err!.localizedDescription)")
+                    print("There was an error setting note to empty string.\(error!.localizedDescription)")
                 }
             }
+            
         }
     }
 }
@@ -194,14 +194,7 @@ extension AddAddressController {
         }
     }
     
-    private func removeNoteFromCoreData(completionHandler:@escaping(_ success:Bool?, _ error:Error?) -> ()) {
-        do {
-            try dataController.viewContext.save()
-            completionHandler(true, nil)
-        } catch {
-            completionHandler(false, error)
-        }
-    }
+
     
     
     private func getRealEstateImages(controller:DataController? = nil, completionHandler:@escaping(_ success:Bool?,_ images:[RealEstateImages]?, _ error:Error?) -> ()) {
