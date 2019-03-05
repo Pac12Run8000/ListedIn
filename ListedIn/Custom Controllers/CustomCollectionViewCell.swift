@@ -17,6 +17,8 @@ class CustomCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var customImageView: UIImageView!
     @IBOutlet weak var deleteButtonBackgroundBackgroundView: UIVisualEffectView!
     
+    weak var customCellDelegate:CustomCellDelegate?
+    
     var realEstateImage:RealEstateImages? {
         didSet {
             self.customImageView.image = UIImage(data: (realEstateImage?.image)!)
@@ -41,7 +43,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     
     @IBAction func deleteButtonAction(_ sender: Any) {
-        print("Button pressed")
+        self.customCellDelegate?.deleteImage(cell: self)
     }
     
 }

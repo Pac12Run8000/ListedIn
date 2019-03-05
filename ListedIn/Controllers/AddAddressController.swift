@@ -69,8 +69,6 @@ class AddAddressController: UIViewController {
         setupBgColor()
         setCollectionViewAppearance()
         
-        
-        
     }
     
 
@@ -117,8 +115,10 @@ class AddAddressController: UIViewController {
         collectionView.reloadData()
         
         isDeleteNotesButtonHidden(localEditState: editState, deleteBtn: deleteButtonOutlet)
-
+        // MARK: Delete (trash can icon) icon is set here
         editImageOutlet.tintColor = isCollectionViewInEditingMode ? UIColor.brightGreen_1 : UIColor.red
+        
+        
 
     }
     
@@ -559,6 +559,7 @@ extension AddAddressController: UICollectionViewDataSource, UICollectionViewDele
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CustomCollectionViewCell
         cell?.realEstateImage = realEstateImagesArray[indexPath.row]
         cell?.deleteButtonBackgroundBackgroundView.isHidden = isCollectionViewInEditingMode
+        cell?.customCellDelegate = self
         return cell!
     }
     
@@ -683,7 +684,19 @@ extension AddAddressController:UIImagePickerControllerDelegate, UINavigationCont
 }
 
 // MARK:- isCollectionViewInEditingMode Methods
-extension AddAddressController {
+extension AddAddressController: CustomCellDelegate  {
+    
+    func deleteImage(cell: CustomCollectionViewCell) {
+        
+        if let indexPath = collectionView?.indexPath(for: cell) {
+            if let imageToDelete = realEstateImagesArray[indexPath.row] as? RealEstateImages {
+                realEstateImagesArray.remove(at: indexPath.row)
+                collectionView.deleteItems(at: [indexPath])
+            }
+        }
+        
+    }
+    
     
     private func isDeleteNotesButtonHidden(localEditState:Bool, deleteBtn:UIButton) {
         if (localEditState == true) {
