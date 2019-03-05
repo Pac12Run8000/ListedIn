@@ -301,12 +301,8 @@ extension AddAddressController {
 
     
     private func setnotesTextViewProperties() {
-        notesTextView.layer.cornerRadius = 4
         notesTextView.backgroundColor = UIColor.greenCyan
         notesTextView.textColor = UIColor.white
-        notesTextView.layer.masksToBounds = true
-        notesTextView.layer.borderColor = UIColor.brightGreen_2.cgColor
-        notesTextView.layer.borderWidth = 2
     }
     
 }
