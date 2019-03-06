@@ -407,22 +407,6 @@
             </objects>
             <point key="canvasLocation" x="4750" y="539"/>
         </scene>
-        <!--Images-->
-        <scene sceneID="G1S-db-osK">
-            <objects>
-                <viewController id="DlR-ae-5Fg" customClass="ImagesViewController" customModule="ListedIn" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ifa-f4-hvP">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="KVs-fh-999"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Images" id="JaH-Uy-Ktb"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vZX-Jx-dUC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4750" y="-157"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="IJ6-3B-zth">
             <objects>
