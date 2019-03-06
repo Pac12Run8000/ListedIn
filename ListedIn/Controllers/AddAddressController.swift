@@ -132,8 +132,6 @@ class AddAddressController: UIViewController {
     }
     
     
-    
-    
     @IBAction func imagesAction(_ sender: Any) {
         self.addPhotoFromCameraOrLibrary()
     }
@@ -586,6 +584,9 @@ extension AddAddressController {
             if let realEstateProperty = realEstatePropertyToEdit {
                 controller.realEstateProperty = realEstateProperty
             }
+        } else if (segue.identifier == "carouselSegue") {
+            let controller = segue.destination as! CarouselViewController
+            controller.imagesArray = realEstateImagesArray
         }
     }
     
