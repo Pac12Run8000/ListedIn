@@ -22,12 +22,12 @@ class CarouselViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        navigationItem.title = "<- swipe left"
         
         view.backgroundColor = UIColor.darkgreen
         
         
-        iCarouselView.type = .invertedTimeMachine
+        iCarouselView.type = .coverFlow
         iCarouselView.contentMode = .scaleAspectFill
         
         

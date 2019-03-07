@@ -74,7 +74,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1071.2" y="124.58770614692655"/>
+            <point key="canvasLocation" x="1207" y="125"/>
         </scene>
         <!--Real Estate Property View Controller-->
         <scene sceneID="ZRm-7g-d0Q">
@@ -155,7 +155,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kZl-A8-0bn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4102" y="-827"/>
+            <point key="canvasLocation" x="4145" y="-103"/>
         </scene>
         <!--Add Address Controller-->
         <scene sceneID="Mkr-6C-Kz3">
@@ -405,7 +405,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oNX-Eg-Wlx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4750" y="539"/>
+            <point key="canvasLocation" x="4146" y="564"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IJ6-3B-zth">
