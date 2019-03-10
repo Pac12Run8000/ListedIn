@@ -40,6 +40,7 @@
 		091FC07E21F30F24004FAA7A /* RealEstatePropertyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealEstatePropertyViewController.swift; sourceTree = "<group>"; };
 		091FC08221F3A29C004FAA7A /* AddAddressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressController.swift; sourceTree = "<group>"; };
 		091FC08421F5112C004FAA7A /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		095AAF9822357B0B00180631 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0982238D222F559700E9D86C /* CarouselViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselViewController.swift; sourceTree = "<group>"; };
 		09822390222F5DBC00E9D86C /* ListedIn-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ListedIn-Bridging-Header.h"; sourceTree = "<group>"; };
 		09822391222F5DBD00E9D86C /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
@@ -88,6 +89,7 @@
 				091FC06721EDBC57004FAA7A /* Assets.xcassets */,
 				091FC06921EDBC57004FAA7A /* LaunchScreen.storyboard */,
 				091FC06C21EDBC57004FAA7A /* Info.plist */,
+				095AAF9822357B0B00180631 /* README.md */,
 			);
 			path = ListedIn;
 			sourceTree = "<group>";
