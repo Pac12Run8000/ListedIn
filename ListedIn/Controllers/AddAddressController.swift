@@ -600,6 +600,7 @@ extension AddAddressController {
         
         let layout = UICollectionViewFlowLayout()
         let space:CGFloat = 3.0
+//        let dimension = ((view.frame.size.width - 10) - (3 * space)) / 4.0
         let dimension = ((view.frame.size.width - 10) - (2 * space)) / 3.0
         layout.minimumLineSpacing = space
         layout.minimumInteritemSpacing = space
